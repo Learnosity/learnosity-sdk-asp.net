@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Data API";
+}
+
+@Html.Partial("~/Views/Shared/Jumbotron.cshtml")
+@Html.Partial("~/Views/Shared/Code.cshtml")
+@Html.Partial("~/Views/Shared/Result.cshtml")
+
+<script>
+    document.getElementById('code').innerHTML = '@Html.Raw(ViewBag.JSON)';
+    document.getElementById('result').innerHTML = library.json.prettyPrint(@Html.Raw(ViewBag.RESULT));
+</script>

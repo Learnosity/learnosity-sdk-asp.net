@@ -424,6 +424,8 @@ namespace LearnositySDK.Request
 
                     break;
                 case "items":
+                    // fall-through
+                case "reports":
 
                     if (!Tools.array_key_exists("user_id", this.securityPacket) && Tools.array_key_exists("user_id", this.requestPacket))
                     {

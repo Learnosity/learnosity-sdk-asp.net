@@ -87,14 +87,7 @@ namespace LearnositySDK.Examples
             DataApi da = new DataApi();
             JsonObject jo = da.requestRecursive(url, security, secret, request, action, callback);
 
-            if (Data.recursiveResponse.count() > 0)
-            {
-                return Data.recursiveResponse.toJson();
-            }
-            else
-            {
-                return jo.toJson();
-            }
+            return jo.toJson();
         }
 
         /// <summary>

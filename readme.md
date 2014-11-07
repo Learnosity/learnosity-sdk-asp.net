@@ -1,5 +1,4 @@
-Learnosity SDK - ASP.NET / C#
-=============
+# Learnosity SDK - ASP.NET / C#
 
 This repository contains full .NET solution.
 

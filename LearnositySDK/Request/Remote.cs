@@ -147,7 +147,8 @@ namespace LearnositySDK.Request
             }
 
             JsonObject defaults = new JsonObject();
-            defaults.set("timeout", 30);
+            defaults.set("timeout", 10);
+            defaults.set("readWriteTimeout", 50);
             defaults.set("headers", new JsonObject());
             defaults.set("encoding", "utf-8");
 
@@ -157,6 +158,7 @@ namespace LearnositySDK.Request
 
             this.hr = (HttpWebRequest)HttpWebRequest.Create(url);
             this.hr.Timeout = options.getInt("timeout") * 1000;
+            this.hr.ReadWriteTimeout = options.getInt("readWriteTimeout") * 1000;
             this.hr.SendChunked = true;
             this.hr.TransferEncoding = options.getString("encoding");
             this.hr.AllowAutoRedirect = true;

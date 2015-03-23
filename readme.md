@@ -213,7 +213,7 @@ Check `Examples.Data.DataApiRecursive()` for an example.
 
 Serves as an simple implementation of PHP associative arrays. It provides many overloaded `get()` and `set()` methods to allow you create your flexible objects.
 
-Constructor accpets only parameter: `bool isArray = false`. It's required to set this flag to `true` if your object should behave like an array.
+Constructor accepts only one parameter: `bool isArray = false`. It's required to set this flag to `true` if your object should behave like an array.
 
 Example with both - objects and arrays:
 

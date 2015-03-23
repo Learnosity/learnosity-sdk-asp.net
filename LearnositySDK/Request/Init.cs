@@ -372,8 +372,6 @@ namespace LearnositySDK.Request
             {
                 case "assess":
                     // fall-through
-                case "author":
-                    // fall-through
                 case "questions":
                     
                     this.signRequestData = false;

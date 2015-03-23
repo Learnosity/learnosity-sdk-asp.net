@@ -3,8 +3,14 @@
 }
 
 @Html.Partial("~/Views/Shared/Jumbotron.cshtml");
-@Html.Partial("~/Views/Shared/Code.cshtml")
+@Html.Partial("~/Views/Shared/Code.cshtml");
+@Html.Partial("~/Views/Shared/LrnContainer.cshtml");
 
-<script>
+<script type="text/javascript">
     document.getElementById('code').innerHTML = library.json.prettyPrint(@Html.Raw(ViewBag.JSON));
+</script>
+<script type="text/javascript" src="//authorapi.learnosity.com?v0.7.2"></script>
+<script type="text/javascript">
+    var initOptions = @Html.Raw(ViewBag.JSON);
+    LearnosityAuthor.init(initOptions);
 </script>

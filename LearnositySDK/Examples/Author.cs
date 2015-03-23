@@ -18,20 +18,29 @@ namespace LearnositySDK.Examples
             string secret = "74c5fd430cf1242a527f6223aebd42d30464be22";
 
             JsonObject request = new JsonObject();
-            JsonObject tags = new JsonObject(true);
+            JsonObject components = new JsonObject(true);
+            JsonObject component = new JsonObject();
+            JsonObject questionEditorOptions = new JsonObject(true);
+            JsonObject ui = new JsonObject();
 
-            JsonObject tag1 = new JsonObject();
-            tag1.set("type", "course");
-            tag1.set("name", "commoncore");
-            tags.set(tag1);
+            ui.set("public_methods", new JsonObject(true));
+            ui.set("question_tiles", false);
+            ui.set("documentation_link", false);
+            ui.set("change_button", true);
+            ui.set("source_button", false);
+            ui.set("fixed_preview", true);
+            ui.set("advanced_group", false);
+            ui.set("search_field", false);
 
-            JsonObject tag2 = new JsonObject();
-            tag2.set("type", "subject");
-            tag2.set("name", "Maths");
-            tags.set(tag2);
+            component.set("id", "learnosity_author");
+            component.set("type", "itemeditor");
+            component.set("reference", Uuid.generate());
+            component.set("template", "single-question");
 
-            request.set("limit", 100);
-            request.set("tags", tags);
+            questionEditorOptions.set("ui", ui);
+            component.set("question-editor-options", questionEditorOptions);
+            components.set(component);
+            request.set("components", components);
 
             Init init = new Init(service, security, secret, request);
             return init.generate();

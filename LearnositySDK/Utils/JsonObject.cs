@@ -494,7 +494,7 @@ namespace LearnositySDK.Utils
 
                 if (this.isArray())
                 {
-                    sb.Append(Json.encode(item.Value.ToString()));
+                    sb.Append(item.Value.ToString());
                 }
                 else
                 {

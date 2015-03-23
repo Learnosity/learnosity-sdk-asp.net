@@ -6,11 +6,11 @@
 @Html.Partial("~/Views/Shared/Code.cshtml");
 @Html.Partial("~/Views/Shared/LrnContainer.cshtml");
 
-<script type="text/javascript">
+<script>
     document.getElementById('code').innerHTML = library.json.prettyPrint(@Html.Raw(ViewBag.JSON));
 </script>
-<script type="text/javascript" src="//authorapi.learnosity.com?v0.7.2"></script>
-<script type="text/javascript">
+<script src="//authorapi.learnosity.com?v0.7.2"></script>
+<script>
     var initOptions = @Html.Raw(ViewBag.JSON);
     LearnosityAuthor.init(initOptions);
 </script>

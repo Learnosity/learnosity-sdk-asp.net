@@ -345,7 +345,7 @@ namespace LearnositySDK.Request
 
             if (!Tools.empty(this.requestPacket))
             {
-                output = JsonObjectFactory.merge(output, this.requestPacket, false, true);
+                output = JsonObjectFactory.merge(output, this.requestPacket, false, false);
             }
 
             return output;

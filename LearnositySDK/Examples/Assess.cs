@@ -9,7 +9,7 @@ namespace LearnositySDK.Examples
     {
         public static string Simple()
         {
-            string uuid = Uuid.generate().Substring(0, 23);
+            string uuid = Uuid.generate();
             string courseId = "mycourse";
             string questionsApiActivityJson = Assess.questionsApiActivity(uuid, courseId);
             JsonObject questionsApiActivity = JsonObjectFactory.fromString(questionsApiActivityJson);
@@ -58,7 +58,7 @@ namespace LearnositySDK.Examples
             return string.Format(@"{{
                 ""type"": ""submit_practice"",
                 ""state"": ""initial"",
-                ""id"": ""assessdemo_{0}"",
+                ""id"": ""assessdemo"",
                 ""name"": ""Assess API - Demo"",
                 ""course_id"": ""{1}"",
                 ""questions"": [

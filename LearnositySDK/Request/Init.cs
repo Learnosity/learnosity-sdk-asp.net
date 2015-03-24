@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LearnositySDK.Utils;
+using System.Web;
 
 namespace LearnositySDK.Request
 {
@@ -270,7 +271,7 @@ namespace LearnositySDK.Request
                     // do nothing
                     break;
             }
-
+            
             return output.toJson();
         }
 
@@ -288,7 +289,7 @@ namespace LearnositySDK.Request
             obj = output.getJsonObject("security");
             if (!Tools.empty(obj))
             {
-                sb.Append("security=" + obj.toJson());
+                sb.Append("security=" + HttpUtility.UrlEncode(obj.toJson()));
             }
             else
             {
@@ -298,13 +299,13 @@ namespace LearnositySDK.Request
             obj = output.getJsonObject("request");
             if (!Tools.empty(obj))
             {
-                sb.Append("&request=" + obj.toJson());
+                sb.Append("&request=" + HttpUtility.UrlEncode(obj.toJson()));
             }
 
             str = output.getString("action");
             if (!Tools.empty(str))
             {
-                sb.Append("&action=" + str);
+                sb.Append("&action=" + HttpUtility.UrlEncode(str));
             }
 
             return sb.ToString();

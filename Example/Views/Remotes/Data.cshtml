@@ -7,6 +7,6 @@
 @Html.Partial("~/Views/Shared/Result.cshtml")
 
 <script>
-    document.getElementById('code').innerHTML = '@Html.Raw(ViewBag.JSON)';
+    document.getElementById('code').innerHTML = 'Encoded:<br>@Html.Raw(ViewBag.JSON)<br><br>Decoded:<br>@HttpUtility.UrlDecode(ViewBag.JSON)';
     document.getElementById('result').innerHTML = library.json.prettyPrint(@Html.Raw(ViewBag.RESULT));
 </script>

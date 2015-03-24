@@ -9,7 +9,7 @@ namespace LearnositySDK.Examples
     {
         public static string Simple()
         {
-            string uuid = Uuid.generate();
+            string uuid = Uuid.generate().Substring(0, 23);
             string courseId = "mycourse";
             string questionsApiActivityJson = Assess.questionsApiActivity(uuid, courseId);
             JsonObject questionsApiActivity = JsonObjectFactory.fromString(questionsApiActivityJson);
@@ -18,17 +18,14 @@ namespace LearnositySDK.Examples
 
             JsonObject security = new JsonObject();
             security.set("consumer_key", "yis0TYCu7U9V4o7M");
-            security.set("user_id", "12345678");
+            security.set("user_id", "demo_student");
+            security.set("domain", "localhost");
 
             string secret = "74c5fd430cf1242a527f6223aebd42d30464be22";
-
-            JsonObject pwd = new JsonObject();
-            pwd.set("pwd", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8");
 
             JsonObject request = new JsonObject();
             request.set("name", "Demo Activity (8 questions)");
             request.set("state", "initial");
-            request.set("administration", pwd);
             request.set("items", Assess.items(uuid));
             request.set("questionsApiActivity", questionsApiActivity);
 
@@ -46,7 +43,7 @@ namespace LearnositySDK.Examples
                 responseIDs.set(uuid + "_demo" + i.ToString());
                 JsonObject item = new JsonObject();
                 item.set("reference", "Demo" + i.ToString());
-                item.set("content", "<span class='learnosity-response-question-" + uuid + "_demo" + i.ToString() + "'></span>");
+                item.set("content", "<span class='learnosity-response question-" + uuid + "_Demo" + i.ToString() + "'></span>");
                 item.set("workflow", new JsonObject(true));
                 item.set("response_ids", responseIDs);
                 item.set("feature_ids", new JsonObject(true));
@@ -91,10 +88,10 @@ namespace LearnositySDK.Examples
                       ""pairwise"": false
                     }},
                     ""instant_feedback"": true,
-                    ""response_id"": ""{0}_demo3"",
+                    ""response_id"": ""{0}_Demo3"",
                     ""metadata"": {{
                       ""sheet_reference"": ""Demo3"",
-                      ""widget_reference"": ""demo3""
+                      ""widget_reference"": ""Demo3""
                     }}
                   }},
                   {{

@@ -42,7 +42,8 @@ namespace LearnositySDK.Utils
         /// <param name="value"></param>
         public void set(int value)
         {
-            this.set(this.arrayIndex++, value);
+            this.set(this.arrayIndex, value);
+            this.arrayIndex++;
         }
 
         /// <summary>
@@ -51,7 +52,8 @@ namespace LearnositySDK.Utils
         /// <param name="value"></param>
         public void set(string value)
         {
-            this.set(this.arrayIndex++, value);
+            this.set(this.arrayIndex, value);
+            this.arrayIndex++;
         }
 
         /// <summary>
@@ -60,7 +62,8 @@ namespace LearnositySDK.Utils
         /// <param name="value"></param>
         public void set(JsonObject value)
         {
-            this.set(this.arrayIndex++, value);
+            this.set(this.arrayIndex, value);
+            this.arrayIndex++;
         }
 
         /// <summary>
@@ -69,7 +72,8 @@ namespace LearnositySDK.Utils
         /// <param name="value"></param>
         public void set(bool value)
         {
-            this.set(this.arrayIndex++, value);
+            this.set(this.arrayIndex, value);
+            this.arrayIndex++;
         }
 
         /// <summary>

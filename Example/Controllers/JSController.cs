@@ -10,13 +10,14 @@ namespace LearnositySDKExample.Controllers
     {
         public ActionResult Assess()
         {
+            ViewBag.heading = "Assess API";
             ViewBag.JSON = LearnositySDK.Examples.Assess.Simple();
             return View();
         }
 
         public ActionResult Items()
         {
-            ViewBag.heading = "Assess API";
+            ViewBag.heading = "Items API";
             ViewBag.description = "<p>Prepare your security, assessment configuration, item and question information and we'll do the rest.</p>";
             ViewBag.JSON = LearnositySDK.Examples.Items.Simple();
             return View();

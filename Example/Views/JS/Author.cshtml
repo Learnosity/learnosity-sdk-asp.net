@@ -2,9 +2,9 @@
     ViewBag.Title = "Authoring API";
 }
 
-@Html.Partial("~/Views/Shared/Jumbotron.cshtml");
-@Html.Partial("~/Views/Shared/LrnContainer.cshtml");
-@Html.Partial("~/Views/Shared/Code.cshtml");
+@Html.Partial("~/Views/Shared/Jumbotron.cshtml")
+@Html.Partial("~/Views/Shared/LrnContainer.cshtml")
+@Html.Partial("~/Views/Shared/Code.cshtml")
 
 <script>
     document.getElementById('code').innerHTML = library.json.prettyPrint(@Html.Raw(ViewBag.JSON));

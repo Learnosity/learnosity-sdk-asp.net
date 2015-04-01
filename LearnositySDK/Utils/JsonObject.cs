@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace LearnositySDK.Utils
 {
-    public class JsonObject
+    public class JsonObject : ICloneable
     {
         private bool array;
         private int arrayIndex;
@@ -594,6 +594,11 @@ namespace LearnositySDK.Utils
             }
 
             return sb.ToString();
+        }
+
+        public object Clone()
+        {
+            return JsonObjectFactory.fromString(this.toJson());
         }
     }
 }

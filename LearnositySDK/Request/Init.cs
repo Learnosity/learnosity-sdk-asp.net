@@ -139,7 +139,7 @@ namespace LearnositySDK.Request
         private void Initialize(string service, JsonObject securityPacket, string secret, JsonObject requestPacket = null, string action = null)
         {
             this.service = service;
-            this.securityPacket = securityPacket;
+            this.securityPacket = (JsonObject)securityPacket.Clone();
             this.secret = secret;
             this.requestPacket = requestPacket;
             this.action = action;

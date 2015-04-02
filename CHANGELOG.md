@@ -1,3 +1,11 @@
+## v0.4.0 (2015-04-02)
+
+* Merging of Questions API request with security object fixed
+* Fully signed pattern introduced to Author API
+* Fixed POST request encoding for Data API
+* Cloning of security packet when initializing the request
+* Minor polishes and refactors
+
 ## v0.3.2 (2014-11-07)
 
 * Timeout values adjusted

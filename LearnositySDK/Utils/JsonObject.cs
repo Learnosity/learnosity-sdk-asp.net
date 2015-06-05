@@ -382,7 +382,7 @@ namespace LearnositySDK.Utils
 
             foreach (KeyValuePair<string, string> pair in this.ds)
             {
-                stringsList.Add(pair.Key);
+                stringsList.Add(pair.Value);
             }
 
             if (includeInts)

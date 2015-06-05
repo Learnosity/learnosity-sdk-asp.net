@@ -146,7 +146,7 @@ namespace LearnositySDK.Request
 
             this.signRequestData = true;
             this.validSecurityKeys = new string[4] { "consumer_key", "domain", "timestamp", "user_id" };
-            this.validServices = new string[6] { "assess", "author", "data", "items", "questions", "reports" };
+            this.validServices = new string[7] { "assess", "author", "data", "events", "items", "questions", "reports" };
             this.algorithm = "sha256";
 
             // We don't catch this Exception, as we can't `die` as in PHP
@@ -265,6 +265,12 @@ namespace LearnositySDK.Request
                 case "questions":
 
                     output = this.generateQuestions(output);
+
+                    break;
+                case "events":
+
+                    output.set("security", this.securityPacket);
+                    output.set("config", this.requestPacket);
 
                     break;
                 default:
@@ -431,6 +437,27 @@ namespace LearnositySDK.Request
                         this.securityPacket.set("user_id", this.requestPacket.getString("user_id"));
                     }
 
+                    break;
+                case "events":
+
+                    string consumer_key = this.securityPacket.getString("consumer_key");
+                    JsonObject hashedUsers;
+
+                    this.signRequestData = false;
+
+                    JsonObject requestPackageUsers = this.requestPacket.getJsonObject("users");
+                    if (requestPackageUsers != null) {
+                        string[] users =  requestPackageUsers.getValuesArray();
+                        if (users != null && users.Length > 0) {
+                            hashedUsers = new JsonObject();
+                            for (int i = 0; i < users.Length; i++) {
+                                string user_id = users[i];
+                                hashedUsers.set(user_id, Tools.hash(this.algorithm, user_id + consumer_key));
+                            }
+                            this.requestPacket.set("users", hashedUsers);
+                        }
+                    }
+  
                     break;
                 default:
                     // do nothing

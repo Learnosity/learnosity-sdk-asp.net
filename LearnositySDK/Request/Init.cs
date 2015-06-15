@@ -452,7 +452,7 @@ namespace LearnositySDK.Request
                             hashedUsers = new JsonObject();
                             for (int i = 0; i < users.Length; i++) {
                                 string user_id = users[i];
-                                hashedUsers.set(user_id, Tools.hash(this.algorithm, user_id + consumer_key));
+                                hashedUsers.set(user_id, Tools.hash(this.algorithm, user_id + this.secret));
                             }
                             this.requestPacket.set("users", hashedUsers);
                         }

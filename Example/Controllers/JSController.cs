@@ -23,11 +23,13 @@ namespace LearnositySDKExample.Controllers
             return View();
         }
 
-        public ActionResult Author()
+        public ActionResult Author(string mode = "item_edit")
         {
             ViewBag.heading = "Author API";
-            ViewBag.description = "<p>Retrieve content from the Learnosity ItemBank to embed in your own authoring environment.</p>";
-            ViewBag.JSON = LearnositySDK.Examples.Author.Simple();
+            ViewBag.description = (mode == "item_edit")
+                                ? "<p>Allow you to create/edit your own content which are pulled through Learnosity ItemBank in your own authoring environment.</p>"
+                                : "<p>Retrieve content from the Learnosity ItemBank to embed in your own authoring environment.</p>";
+            ViewBag.JSON = LearnositySDK.Examples.Author.Simple(mode);
             return View();
         }
 

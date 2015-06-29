@@ -9,7 +9,6 @@
 <script>
     document.getElementById('code').innerHTML = library.json.prettyPrint(@Html.Raw(ViewBag.JSON));
 </script>
-<script src="//authorapi.learnosity.com?v0.7.2"></script>
 <script>
     var initOptions = @Html.Raw(ViewBag.JSON);
     LearnosityAuthor.init(initOptions);

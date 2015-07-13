@@ -40,7 +40,7 @@ namespace LearnositySDK.Examples
             for (int i = 3; i <= 10; i++)
             {
                 JsonObject responseIDs = new JsonObject(true);
-                responseIDs.set(uuid + "_demo" + i.ToString());
+                responseIDs.set(uuid + "_Demo" + i.ToString());
                 JsonObject item = new JsonObject();
                 item.set("reference", "Demo" + i.ToString());
                 item.set("content", "<span class='learnosity-response question-" + uuid + "_Demo" + i.ToString() + "'></span>");

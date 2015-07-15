@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Web Developer Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnositySDKExample", "Example\LearnositySDKExample.csproj", "{01CF5D15-6658-4665-97CC-D873AE6F7934}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnositySDK", "LearnositySDK\LearnositySDK.csproj", "{4A1F8BE2-02A2-424D-AE33-11F742E18EED}"

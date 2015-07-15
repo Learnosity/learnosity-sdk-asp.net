@@ -28,7 +28,7 @@ namespace LearnositySDK.Examples
 
             JsonObject request = new JsonObject();
             request.set("mode", "item_edit");
-            request.set("reference", "d4453525-edb3-4849-9ffc-28dc2b5509f6");
+            request.set("reference", Uuid.generate());
 
             JsonObject config = new JsonObject();
             JsonObject config_item_edit = new JsonObject();

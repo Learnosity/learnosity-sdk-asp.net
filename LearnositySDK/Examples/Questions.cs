@@ -15,11 +15,11 @@ namespace LearnositySDK.Examples
             string service = "questions";
 
             JsonObject security = new JsonObject();
-            security.set("consumer_key", "yis0TYCu7U9V4o7M");
-            security.set("domain", "localhost");
+            security.set("consumer_key", Credentials.ConsumerKey);
+            security.set("domain", Credentials.Domain);
             security.set("user_id", "demo_student");
 
-            string secret = "74c5fd430cf1242a527f6223aebd42d30464be22";
+            string secret = Credentials.ConsumerSecret;
 
             JsonObject request = JsonObjectFactory.fromString(Questions.requestJson(uuid, courseId));
 

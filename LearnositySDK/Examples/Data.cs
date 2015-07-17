@@ -19,10 +19,10 @@ namespace LearnositySDK.Examples
             string url = "https://data.learnosity.com/stable/sessions/responses";
 
             JsonObject security = new JsonObject();
-            security.set("consumer_key", "yis0TYCu7U9V4o7M");
-            security.set("domain", "localhost");
+            security.set("consumer_key", Credentials.ConsumerKey);
+            security.set("domain", Credentials.Domain);
 
-            string secret = "74c5fd430cf1242a527f6223aebd42d30464be22";
+            string secret = Credentials.ConsumerSecret;
 
             JsonObject request = new JsonObject();
             request.set("limit", 1000);
@@ -47,10 +47,10 @@ namespace LearnositySDK.Examples
             string url = "https://data.learnosity.com/stable/sessions/responses";
 
             JsonObject security = new JsonObject();
-            security.set("consumer_key", "yis0TYCu7U9V4o7M");
-            security.set("domain", "localhost");
+            security.set("consumer_key", Credentials.ConsumerKey);
+            security.set("domain", Credentials.Domain);
 
-            string secret = "74c5fd430cf1242a527f6223aebd42d30464be22";
+            string secret = Credentials.ConsumerSecret;
 
             JsonObject request = new JsonObject();
             request.set("limit", 1000);
@@ -72,10 +72,10 @@ namespace LearnositySDK.Examples
             string url = "https://data.learnosity.com/stable/sessions/responses";
 
             JsonObject security = new JsonObject();
-            security.set("consumer_key", "yis0TYCu7U9V4o7M");
-            security.set("domain", "localhost");
+            security.set("consumer_key", Credentials.ConsumerKey);
+            security.set("domain", Credentials.Domain);
 
-            string secret = "74c5fd430cf1242a527f6223aebd42d30464be22";
+            string secret = Credentials.ConsumerSecret;
 
             JsonObject request = new JsonObject();
             request.set("limit", 1000);

@@ -8,8 +8,8 @@ namespace LearnositySDK
 {
     public static class Credentials
     {
-        public static string ConsumerKey = ConfigurationManager.AppSettings["ConsumerKey"];
-        public static string ConsumerSecret =  ConfigurationManager.AppSettings["ConsumerSecret"];
-        public static string Domain =  ConfigurationManager.AppSettings["Domain"];
+        public static string ConsumerKey = "yis0TYCu7U9V4o7M";
+        public static string ConsumerSecret = "74c5fd430cf1242a527f6223aebd42d30464be22";
+        public static string Domain = "localhost";
     }
 }

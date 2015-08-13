@@ -9,8 +9,3 @@
 <script>
     document.getElementById('code').innerHTML = library.json.prettyPrint(@Html.Raw(ViewBag.JSON));
 </script>
-<script src="//assess.learnosity.com?inline"></script>
-<script>
-    var activity = @Html.Raw(ViewBag.JSON);
-    LearnosityAssess.init(activity, 'learnosity_assess');
-</script>

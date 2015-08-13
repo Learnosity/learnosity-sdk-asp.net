@@ -16,6 +16,10 @@ In addition data and schemas services use `Request/Remote` class to perform HTTP
 
 ## Contents
 
+There are two solution files:
+ * Default: LearnositySDK.sln
+ * Visual Studio 2010: LearnositySDK-VS2010.sln
+
 Solution consists of 2 projects: LearnositySDK and LearnositySDKExamples
 
 ### LearnositySDK
@@ -32,17 +36,11 @@ It uses LearnositySDK to demonstrate how the SDK works.
 
 ## Installation
 
-The only thing developer needs to do to install LearnositySDK is to add 2 references: LearnositySDK.dll and Newtonsoft.Json.dll.
+There is no installation required. Once you download the code you just need to open the corresponding solution file to your Visual Studio version.
 
-To do it:
- * right-click your project name in Solution Explorer,
- * click `Add Reference...` option,
- * go to `Browse` tab,
- * search for desired DLLs
- * select DLL files you want to add to your project,
- * click OK.
+For Visual Studio 2010 users please use: LearnositySDK-VS2010.sln.
 
-You can find both libraries in `Dist/All` folder in this repository.
+For newer Visual Studio versions use default solution file: LearnositySDK.sln
 
 ## Usage
 

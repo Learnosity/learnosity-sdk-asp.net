@@ -16,7 +16,11 @@ In addition data and schemas services use `Request/Remote` class to perform HTTP
 
 ## Contents
 
-Solution consists of 2 projects: LearnositySDK and LearnositySDKExamples
+There are two solution files:
+ * Default: LearnositySDK.sln
+ * Visual Studio 2010: LearnositySDK-VS2010.sln
+
+Solution consists in one project: LearnositySDK
 
 ### LearnositySDK
 
@@ -24,25 +28,13 @@ This project is a class library built in compatibility with .NET 3.5.
 
 This project uses only one external dependency: Newtonsoft.Json library (http://james.newtonking.com/json), also fully compatible with .NET 3.5 (other versions are supported as well).
 
-### LearnositySDKExamples
-
-This is .NET MVC 3 project, built on top of .NET 4.0.
-
-It uses LearnositySDK to demonstrate how the SDK works.
-
 ## Installation
 
-The only thing developer needs to do to install LearnositySDK is to add 2 references: LearnositySDK.dll and Newtonsoft.Json.dll.
+There is no installation required. Once you download the code you just need to open the corresponding solution file to your Visual Studio version.
 
-To do it:
- * right-click your project name in Solution Explorer,
- * click `Add Reference...` option,
- * go to `Browse` tab,
- * search for desired DLLs
- * select DLL files you want to add to your project,
- * click OK.
+For Visual Studio 2010 users please use: LearnositySDK-VS2010.sln.
 
-You can find both libraries in `Dist/All` folder in this repository.
+For newer Visual Studio versions use default solution file: LearnositySDK.sln
 
 ## Usage
 
@@ -250,5 +242,3 @@ Version v0.1.0 - June 2014
 ## Examples
 
 Each service has it's own example - you can find them in `Examples` folder of LearnositySDK project. To run them simply invoke static `Simple` method.
-
-To see all the examples, you can also run the LearnositySDKExamples project in your local IIS server.

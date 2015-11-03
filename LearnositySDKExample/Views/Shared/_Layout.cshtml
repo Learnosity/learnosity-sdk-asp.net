@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Learnosity SDK Examples</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="@Url.Content("~/static/images/favicon.ico")" type="image/x-icon">
+    <link rel="stylesheet" href="@Url.Content("~/static/vendor/bootstrap/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/static/vendor/bootstrap/css/bootstrap-theme.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/static/vendor/codemirror/codemirror.css")">
+    <link rel="stylesheet" href="@Url.Content("~/static/css/main.css")">
+    <script src="@Url.Content("~/static/js/main.js")"></script>
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand logo" href="/">Learnosity SDK</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/JS/Assess">Assess</a></li>
+                <li><a href="/JS/Author">Author</a></li>
+                <li><a href="/Remotes/Data">Data</a></li>
+                <li><a href="/JS/Items">Items</a></li>
+                <li><a href="/JS/Questions">Questions</a></li>
+                <li><a href="/JS/Reports">Reports</a></li>
+                <li><a href="/Remotes/Schemas">Schemas</a></li>
+            </ul>
+            <div class="pull-right">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="https://github.com/Learnosity/learnosity-sdk-asp.net" target="_blank" class="text-muted">
+                            <span class="glyphicon glyphicon-file"></span> View source
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/Learnosity/learnosity-sdk-asp.net/archive/master.zip" target="_blank" download="learnosity-sdk-php.master.zip" class="text-muted">
+                            <span class="glyphicon glyphicon-cloud-download"></span> Download
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        @RenderBody()
+    </div>
+</div>
+
+</body>
+</html>

@@ -182,22 +182,29 @@ namespace LearnositySDK.Request
             {
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
-                this.result = this.hr.GetResponse();
+                using (this.result = this.hr.GetResponse())
+                {
+                    using (StreamReader sr = new StreamReader(this.result.GetResponseStream()))
+                    {
+                        this.responseBody = sr.ReadToEnd();
+                    }
+                }
                 this.status = "200";
                 timer.Stop();
                 this.time = timer.Elapsed.Seconds;
             }
             catch (WebException e)
             {
-                this.result = e.Response;
+                using (this.result = e.Response)
+                {
+                    using (StreamReader sr = new StreamReader(this.result.GetResponseStream()))
+                    {
+                        this.responseBody = sr.ReadToEnd();
+                    }
+                }
                 this.status = e.Status.ToString();
                 this.errorCode = this.status;
                 this.errorMessage = e.Message;
-            }
-
-            using (StreamReader sr = new StreamReader(this.result.GetResponseStream()))
-            {
-                this.responseBody = sr.ReadToEnd();
             }
 
             this.process();

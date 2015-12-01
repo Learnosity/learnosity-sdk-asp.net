@@ -13,6 +13,7 @@ namespace LearnositySDK.Utils
         private bool array;
         private int arrayIndex;
         private Dictionary<string, int> di;
+        private Dictionary<string, float> df;
         private Dictionary<string, string> ds;
         private Dictionary<string, JsonObject> dj;
         private Dictionary<string, bool> db;
@@ -24,11 +25,12 @@ namespace LearnositySDK.Utils
             this.array = isArray;
             this.arrayIndex = 0; // lastInsertedIndex
             this.di = new Dictionary<string, int>();
+            this.df = new Dictionary<string, float>();
             this.ds = new Dictionary<string, string>();
             this.dj = new Dictionary<string, JsonObject>();
             this.db = new Dictionary<string, bool>();
             this.da = new Dictionary<string, JsonObject>();
-            this.types = new string[5] { "int", "string", "JsonObject", "bool", "JsonArray" };
+            this.types = new string[6] { "int", "string", "JsonObject", "bool", "JsonArray", "float" };
         }
 
         public bool isArray()
@@ -41,6 +43,16 @@ namespace LearnositySDK.Utils
         /// </summary>
         /// <param name="value"></param>
         public void set(int value)
+        {
+            this.set(this.arrayIndex, value);
+            this.arrayIndex++;
+        }
+
+        /// <summary>
+        /// Sets/adds the value
+        /// </summary>
+        /// <param name="value"></param>
+        public void set(float value)
         {
             this.set(this.arrayIndex, value);
             this.arrayIndex++;
@@ -102,6 +114,16 @@ namespace LearnositySDK.Utils
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
+        public void set(int key, float value)
+        {
+            this.set(key.ToString(), value);
+        }
+
+        /// <summary>
+        /// Sets/adds the value
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public void set(int key, string value)
         {
             this.set(key.ToString(), value);
@@ -142,6 +164,16 @@ namespace LearnositySDK.Utils
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
+        public void set(string key, float value)
+        {
+            this.set("float", key, value);
+        }
+
+        /// <summary>
+        /// Sets/adds the value
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public void set(string key, string value)
         {
             this.set("string", key, value);
@@ -172,6 +204,7 @@ namespace LearnositySDK.Utils
         {
             this.db.Remove(key);
             this.di.Remove(key);
+            this.df.Remove(key);
             this.ds.Remove(key);
             this.dj.Remove(key);
             this.da.Remove(key);
@@ -207,6 +240,13 @@ namespace LearnositySDK.Utils
                 this.arrayIndex = n;
             }
 
+            float i;
+            bool isFloat = float.TryParse(key, out i);
+            if (isFloat)
+            {
+                this.arrayIndex = 5;
+            }
+            
             int index = Array.IndexOf(this.types, type);
 
             if (index < 0)
@@ -227,6 +267,8 @@ namespace LearnositySDK.Utils
                 case 3: this.db.Add(key, (bool)value);
                     break;
                 case 4: this.da.Add(key, (JsonObject)value);
+                    break;
+                case 5: this.df.Add(key, (float)value);
                     break;
             }
         }
@@ -352,6 +394,12 @@ namespace LearnositySDK.Utils
                 return this.da[key];
             }
 
+            if (this.df.ContainsKey(key))
+            {
+                type = "float";
+                return this.df[key];
+            }
+
             type = "";
             return null;
         }
@@ -417,6 +465,11 @@ namespace LearnositySDK.Utils
                 l.Add(item.Key);
             }
 
+            foreach (KeyValuePair<string, float> item in this.df)
+            {
+                l.Add(item.Key);
+            }
+
             foreach (KeyValuePair<string, string> item in this.ds)
             {
                 l.Add(item.Key);
@@ -453,6 +506,7 @@ namespace LearnositySDK.Utils
             count += this.db.Count;
             count += this.dj.Count;
             count += this.da.Count;
+            count += this.df.Count;
 
             return count;
         }
@@ -490,6 +544,25 @@ namespace LearnositySDK.Utils
             }
 
             foreach (KeyValuePair<string, int> item in this.di)
+            {
+                if (index > 0)
+                {
+                    sb.Append(",");
+                }
+
+                if (this.isArray())
+                {
+                    sb.Append(item.Value.ToString());
+                }
+                else
+                {
+                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString());
+                }
+
+                index++;
+            }
+
+            foreach (KeyValuePair<string, float> item in this.df)
             {
                 if (index > 0)
                 {

@@ -160,7 +160,7 @@ namespace LearnositySDK.Request
                     }
                 }
             }
-            while(Tools.array_key_exists("next", meta));
+            while(Tools.array_key_exists("next", meta) && !Tools.empty(data.getJsonObject("data")));
 
             return response;
         }

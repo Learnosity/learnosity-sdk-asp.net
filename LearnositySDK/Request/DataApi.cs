@@ -146,7 +146,7 @@ namespace LearnositySDK.Request
                     throw new Exception(Json.encode(data));
                 }
 
-                if(Tools.array_key_exists("next", meta))
+                if(Tools.array_key_exists("next", meta) && !Tools.empty(data.getJsonObject("data")))
                 {
                     string next = meta.getString("next");
                     if (next != null)
@@ -159,8 +159,12 @@ namespace LearnositySDK.Request
                         throw new Exception("data['meta']['next'] is not a string");
                     }
                 }
+                else
+                {
+                    requestPacket.remove("next");
+                }
             }
-            while(Tools.array_key_exists("next", meta));
+            while(Tools.array_key_exists("next", requestPacket));
 
             return response;
         }

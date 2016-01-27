@@ -239,13 +239,6 @@ namespace LearnositySDK.Utils
             {
                 this.arrayIndex = n;
             }
-
-            float i;
-            bool isFloat = float.TryParse(key, out i);
-            if (isFloat)
-            {
-                this.arrayIndex = 5;
-            }
             
             int index = Array.IndexOf(this.types, type);
 

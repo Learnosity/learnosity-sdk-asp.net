@@ -67,7 +67,7 @@ namespace LearnositySDK.Utils
 
             int index = 0;
 
-            foreach (JToken item in jArray)
+            foreach (JToken item in (IEnumerable<JToken>)jArray)
             {
                 jsonObject = JsonObjectFactory.fromJToken(jsonObject, index.ToString(), item);
                 index++;

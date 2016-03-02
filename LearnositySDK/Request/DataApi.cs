@@ -112,7 +112,7 @@ namespace LearnositySDK.Request
         /// <returns>Instance of the Remote class</returns>
         private JsonObject handleRequestRecursive(string url, JsonObject securityPacket, string secret, JsonObject requestPacket = null, string action = null, ProcessData callback = null)
         {
-            JsonObject response = new JsonObject();
+            JsonObject response = new JsonObject(true);
             JsonObject data, meta;
             Remote request;
             int recursion = 0;
@@ -139,7 +139,7 @@ namespace LearnositySDK.Request
                     }
                     else
                     {
-                        response = Tools.array_merge(response, data);
+                        response = Tools.array_merge(response, data.getJsonObject("data"));
                     }
                 }
                 else {

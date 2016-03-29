@@ -18,6 +18,7 @@ namespace LearnositySDK.Utils
         private Dictionary<string, JsonObject> dj;
         private Dictionary<string, bool> db;
         private Dictionary<string, JsonObject> da; // arrays
+        private Dictionary<string, JToken> dt; // NULL values
         private string[] types;
 
         public JsonObject(bool isArray = false)
@@ -30,7 +31,8 @@ namespace LearnositySDK.Utils
             this.dj = new Dictionary<string, JsonObject>();
             this.db = new Dictionary<string, bool>();
             this.da = new Dictionary<string, JsonObject>();
-            this.types = new string[6] { "int", "string", "JsonObject", "bool", "JsonArray", "float" };
+            this.dt = new Dictionary<string, JToken>();
+            this.types = new string[7] { "int", "string", "JsonObject", "bool", "JsonArray", "float", "NULL" };
         }
 
         public bool isArray()
@@ -154,6 +156,16 @@ namespace LearnositySDK.Utils
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
+        public void set(int key, JToken value)
+        {
+            this.set(key.ToString(), value);
+        }
+
+        /// <summary>
+        /// Sets/adds the value
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public void set(string key, int value)
         {
             this.set("int", key, value);
@@ -194,6 +206,16 @@ namespace LearnositySDK.Utils
             {
                 this.set("JsonObject", key, value);
             }
+        }
+
+        /// <summary>
+        /// Sets/adds the value
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public void set(string key, JToken value)
+        {
+            this.set("NULL", key, value);
         }
 
         /// <summary>
@@ -262,6 +284,8 @@ namespace LearnositySDK.Utils
                 case 4: this.da.Add(key, (JsonObject)value);
                     break;
                 case 5: this.df.Add(key, (float)value);
+                    break;
+                case 6: this.dt.Add(key, (JToken)value);
                     break;
             }
         }
@@ -393,6 +417,12 @@ namespace LearnositySDK.Utils
                 return this.df[key];
             }
 
+            if (this.dt.ContainsKey(key))
+            {
+                type = "NULL";
+                return this.dt[key];
+            }
+
             type = "";
             return null;
         }
@@ -483,6 +513,11 @@ namespace LearnositySDK.Utils
                 l.Add(item.Key);
             }
 
+            foreach (KeyValuePair<string, JToken> item in this.dt)
+            {
+                l.Add(item.Key);
+            }
+
             return l.ToArray();
         }
 
@@ -500,6 +535,7 @@ namespace LearnositySDK.Utils
             count += this.dj.Count;
             count += this.da.Count;
             count += this.df.Count;
+            count += this.dt.Count;
 
             return count;
         }
@@ -647,6 +683,25 @@ namespace LearnositySDK.Utils
                     sb.Append(Json.encode(item.Key) + ":" + item.Value.toJson());
                 }
                 
+                index++;
+            }
+
+            foreach (KeyValuePair<string, JToken> item in this.dt)
+            {
+                if (index > 0)
+                {
+                    sb.Append(",");
+                }
+
+                if (this.isArray())
+                {
+                    sb.Append("null");
+                }
+                else
+                {
+                    sb.Append(Json.encode(item.Key) + ":null");
+                }
+
                 index++;
             }
 

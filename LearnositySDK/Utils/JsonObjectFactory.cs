@@ -103,6 +103,9 @@ namespace LearnositySDK.Utils
                 case JTokenType.Object:
                     jsonObject.set("JsonObject", key, JsonObjectFactory.fromJObject((JObject)item));
                     break;
+                case JTokenType.Null:
+                    jsonObject.set("NULL", key, item);
+                    break;
                 default:
                     break;
             }

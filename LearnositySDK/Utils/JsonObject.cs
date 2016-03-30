@@ -562,155 +562,143 @@ namespace LearnositySDK.Utils
         {
             StringBuilder sb = new StringBuilder();
             int index = 0;
+            int count = this.count();
 
             if (this.isArray())
             {
                 sb.Append("[");
-            }
-            else
-            {
-                sb.Append("{");
-            }
 
-            foreach (KeyValuePair<string, int> item in this.di)
-            {
-                if (index > 0)
+                for (index = 0; index < count; index++)
                 {
-                    sb.Append(",");
+                    if (index > 0)
+                    {
+                        sb.Append(",");
+                    }
+
+                    string key = index.ToString();
+
+                    if (this.di.ContainsKey(key))
+                    {
+                        sb.Append(this.di[key].ToString());
+                    }
+                    else if (this.df.ContainsKey(key))
+                    {
+                        sb.Append(this.df[key].ToString());
+                    }
+                    else if (this.ds.ContainsKey(key))
+                    {
+                        sb.Append(Json.encode(this.ds[key]));
+                    }
+                    else if (this.db.ContainsKey(key))
+                    {
+                        sb.Append(this.db[key].ToString().ToLower());
+                    }
+                    else if (this.dj.ContainsKey(key))
+                    {
+                        sb.Append(this.dj[key].toJson());
+                    }
+                    else if (this.da.ContainsKey(key))
+                    {
+                        sb.Append(this.da[key].toJson());
+                    }
+                    else if (this.dt.ContainsKey(key))
+                    {
+                        sb.Append("null");
+                    }
                 }
 
-                if (this.isArray())
-                {
-                    sb.Append(item.Value.ToString());
-                }
-                else
-                {
-                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString());
-                }
-
-                index++;
-            }
-
-            foreach (KeyValuePair<string, float> item in this.df)
-            {
-                if (index > 0)
-                {
-                    sb.Append(",");
-                }
-
-                if (this.isArray())
-                {
-                    sb.Append(item.Value.ToString());
-                }
-                else
-                {
-                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString());
-                }
-
-                index++;
-            }
-
-            foreach (KeyValuePair<string, string> item in this.ds)
-            {
-                if (index > 0)
-                {
-                    sb.Append(",");
-                }
-
-                if (this.isArray())
-                {
-                    sb.Append(Json.encode(item.Value));
-                }
-                else
-                {
-                    sb.Append(Json.encode(item.Key) + ":" + Json.encode(item.Value));
-                }
-
-                index++;
-            }
-
-            foreach (KeyValuePair<string, bool> item in this.db)
-            {
-                if (index > 0)
-                {
-                    sb.Append(",");
-                }
-
-                if (this.isArray())
-                {
-                    sb.Append(item.Value.ToString().ToLower());
-                }
-                else
-                {
-                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString().ToLower());
-                }
-
-                index++;
-            }
-
-            foreach (KeyValuePair<string, JsonObject> item in this.dj)
-            {
-                if (index > 0)
-                {
-                    sb.Append(",");
-                }
-
-                if (this.isArray())
-                {
-                    sb.Append(item.Value.toJson());
-                }
-                else
-                {
-                    sb.Append(Json.encode(item.Key) + ":" + item.Value.toJson());
-                }
-
-                index++;
-            }
-
-            foreach (KeyValuePair<string, JsonObject> item in this.da)
-            {
-                if (index > 0)
-                {
-                    sb.Append(",");
-                }
-
-                if (this.isArray())
-                {
-                    sb.Append(item.Value.toJson());
-                }
-                else
-                {
-                    sb.Append(Json.encode(item.Key) + ":" + item.Value.toJson());
-                }
-                
-                index++;
-            }
-
-            foreach (KeyValuePair<string, JToken> item in this.dt)
-            {
-                if (index > 0)
-                {
-                    sb.Append(",");
-                }
-
-                if (this.isArray())
-                {
-                    sb.Append("null");
-                }
-                else
-                {
-                    sb.Append(Json.encode(item.Key) + ":null");
-                }
-
-                index++;
-            }
-
-            if (this.isArray())
-            {
                 sb.Append("]");
             }
             else
             {
+                sb.Append("{");
+
+                // order of properties in object is not important, hence we just do it in order
+
+                foreach (KeyValuePair<string, int> item in this.di)
+                {
+                    if (index > 0)
+                    {
+                        sb.Append(",");
+                    }
+
+                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString());
+
+                    index++;
+                }
+
+                foreach (KeyValuePair<string, float> item in this.df)
+                {
+                    if (index > 0)
+                    {
+                        sb.Append(",");
+                    }
+
+                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString());
+
+                    index++;
+                }
+
+                foreach (KeyValuePair<string, string> item in this.ds)
+                {
+                    if (index > 0)
+                    {
+                        sb.Append(",");
+                    }
+
+                    sb.Append(Json.encode(item.Key) + ":" + Json.encode(item.Value));
+
+                    index++;
+                }
+
+                foreach (KeyValuePair<string, bool> item in this.db)
+                {
+                    if (index > 0)
+                    {
+                        sb.Append(",");
+                    }
+
+                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString().ToLower());
+
+                    index++;
+                }
+
+                foreach (KeyValuePair<string, JsonObject> item in this.dj)
+                {
+                    if (index > 0)
+                    {
+                        sb.Append(",");
+                    }
+
+                    sb.Append(Json.encode(item.Key) + ":" + item.Value.toJson());
+
+                    index++;
+                }
+
+                foreach (KeyValuePair<string, JsonObject> item in this.da)
+                {
+                    if (index > 0)
+                    {
+                        sb.Append(",");
+                    }
+
+                    sb.Append(Json.encode(item.Key) + ":" + item.Value.toJson());
+
+                    index++;
+                }
+
+                foreach (KeyValuePair<string, JToken> item in this.dt)
+                {
+                    if (index > 0)
+                    {
+                        sb.Append(",");
+                    }
+
+                    sb.Append(Json.encode(item.Key) + ":null");
+
+                    index++;
+                }
+
                 sb.Append("}");
             }
 

@@ -232,5 +232,29 @@ namespace LearnositySDK.Utils
 
             return newObj;
         }
+
+        /// <summary>
+        /// Checks whether two JSON strings are equal
+        /// </summary>
+        /// <param name="JSON1">first JSON string to compare</param>
+        /// <param name="JSON2">second JSON string to compare</param>
+        /// <returns></returns>
+        public static bool JSONEquality(string JSON1, string JSON2)
+        {
+            JToken jo1 = JToken.Parse(JSON1);
+            JToken jo2 = JToken.Parse(JSON2);
+            return Newtonsoft.Json.Linq.JToken.DeepEquals(jo1, jo2);
+        }
+
+        /// <summary>
+        /// Checks whether two JsonObjects are equal
+        /// </summary>
+        /// <param name="JSON1">first JsonObject to compare</param>
+        /// <param name="JSON2">second JsonObject to compare</param>
+        /// <returns></returns>
+        public static bool JSONEquality(JsonObject JSON1, JsonObject JSON2)
+        {
+            return JSONEquality(JSON1.toJson(), JSON2.toJson());
+        }
     }
 }

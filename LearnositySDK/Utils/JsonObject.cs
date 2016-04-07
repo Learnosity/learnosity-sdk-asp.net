@@ -636,6 +636,10 @@ namespace LearnositySDK.Utils
                     {
                         sb.Append(this.db[key].ToString().ToLower());
                     }
+                    else if (this.dt.ContainsKey(key))
+                    {
+                        sb.Append("null");
+                    }
                     else if (this.dj.ContainsKey(key))
                     {
                         sb.Append(this.dj[key].toJson());
@@ -643,10 +647,6 @@ namespace LearnositySDK.Utils
                     else if (this.da.ContainsKey(key))
                     {
                         sb.Append(this.da[key].toJson());
-                    }
-                    else if (this.dt.ContainsKey(key))
-                    {
-                        sb.Append("null");
                     }
                 }
 
@@ -706,6 +706,18 @@ namespace LearnositySDK.Utils
                     index++;
                 }
 
+                foreach (KeyValuePair<string, JToken> item in this.dt)
+                {
+                    if (index > 0)
+                    {
+                        sb.Append(",");
+                    }
+
+                    sb.Append(Json.encode(item.Key) + ":null");
+
+                    index++;
+                }
+
                 foreach (KeyValuePair<string, JsonObject> item in this.dj)
                 {
                     if (index > 0)
@@ -726,18 +738,6 @@ namespace LearnositySDK.Utils
                     }
 
                     sb.Append(Json.encode(item.Key) + ":" + item.Value.toJson());
-
-                    index++;
-                }
-
-                foreach (KeyValuePair<string, JToken> item in this.dt)
-                {
-                    if (index > 0)
-                    {
-                        sb.Append(",");
-                    }
-
-                    sb.Append(Json.encode(item.Key) + ":null");
 
                     index++;
                 }

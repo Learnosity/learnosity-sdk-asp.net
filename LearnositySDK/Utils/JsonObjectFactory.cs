@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace LearnositySDK.Utils
 {
@@ -23,19 +24,19 @@ namespace LearnositySDK.Utils
                 return null;
             }
 
-            if (type == "object")
+            using (var sr = new StringReader(JSON))
+            using (var jr = new JsonTextReader(sr) { DateParseHandling = DateParseHandling.None })
             {
-                JObject jObject = JObject.Parse(JSON);
-                return JsonObjectFactory.fromJObject(jObject);
-            }
-            else if (type == "array")
-            {
-                JArray jArray = JArray.Parse(JSON);
-                return JsonObjectFactory.fromJArray(jArray);
-            }
-            else
-            {
-                throw new Exception("Type not recognized");
+                JToken parsed = JToken.ReadFrom(jr);
+                switch (parsed.Type)
+                {
+                    case JTokenType.Object:
+                        return JsonObjectFactory.fromJObject((JObject)parsed);
+                    case JTokenType.Array:
+                        return JsonObjectFactory.fromJArray((JArray)parsed);
+                    default:
+                        throw new Exception("Currently we don't accept single values, only objects and arrays");
+                }
             }
         }
 

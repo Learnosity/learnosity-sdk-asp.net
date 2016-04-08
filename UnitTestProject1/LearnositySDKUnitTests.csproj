@@ -55,7 +55,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CheckingEqualityUnitTests.cs" />
     <Compile Include="LearnositySDKUnitTests.cs" />
+    <Compile Include="MergingObjectsUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

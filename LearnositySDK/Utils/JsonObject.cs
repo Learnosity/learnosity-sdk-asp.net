@@ -91,6 +91,27 @@ namespace LearnositySDK.Utils
         }
 
         /// <summary>
+        /// Sets/adds the value
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public void set(JToken value)
+        {
+            this.set(this.arrayIndex, value);
+            this.arrayIndex++;
+        }
+
+        /// <summary>
+        /// Sets/adds NULL
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public void setNull()
+        {
+            this.set(JToken.Parse("null"));
+        }
+
+        /// <summary>
         /// Sets/adds value with given type
         /// </summary>
         /// <param name="value"></param>
@@ -162,6 +183,16 @@ namespace LearnositySDK.Utils
         }
 
         /// <summary>
+        /// Sets/adds NULL
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public void setNull(int key)
+        {
+            this.set(key, JToken.Parse("null"));
+        }
+
+        /// <summary>
         /// Sets/adds the value
         /// </summary>
         /// <param name="key"></param>
@@ -198,7 +229,7 @@ namespace LearnositySDK.Utils
         /// <param name="value"></param>
         public void set(string key, JsonObject value)
         {
-            if (this.isArray())
+            if (value.isArray())
             {
                 this.set("JsonArray", key, value);
             }
@@ -216,6 +247,16 @@ namespace LearnositySDK.Utils
         public void set(string key, JToken value)
         {
             this.set("NULL", key, value);
+        }
+
+        /// <summary>
+        /// Sets/adds NULL
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public void setNull(string key)
+        {
+            this.set(key, JToken.Parse("null"));
         }
 
         /// <summary>
@@ -517,6 +558,8 @@ namespace LearnositySDK.Utils
             {
                 l.Add(item.Key);
             }
+
+            l.Sort();
 
             return l.ToArray();
         }

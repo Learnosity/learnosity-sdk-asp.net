@@ -147,6 +147,7 @@ namespace LearnositySDK.Utils
         {
             JsonObject newObj = null;
 
+            // for arrays we just insert elements from the second array to the first one and return a new array
             if (obj1.isArray() && obj2.isArray())
             {
                 newObj = JsonObjectFactory.mergeArrays(obj1, obj2);
@@ -164,66 +165,47 @@ namespace LearnositySDK.Utils
 
             foreach (string key in keys)
             {
-                if (recursive)
+                string type1 = "";
+                string type2 = "";
+                Object temp1Object = obj1.get(key, ref type1);
+                Object temp2Object = obj2.get(key, ref type2);
+
+                // recursive merging for objects only
+                if (recursive && (type1 == "JsonObject" && type2 == "JsonObject"))
                 {
-                    string type1 = "";
-                    string type2 = "";
-                    Object temp1Object = obj1.get(key, ref type1);
-                    Object temp2Object = obj2.get(key, ref type2);
-                    
-                    // recursive merge makes sense only when both items are associative arrays
-                    // if not regular merge will be performed
-                    if (
-                        (type1 == "JsonObject" || type1 == "JsonArray") &&
-                        (type2 == "JsonObject" || type2 == "JsonArray") )
-                    {
-                        JsonObject temp1 = (JsonObject)temp1Object;
-                        JsonObject temp2 = (JsonObject)temp2Object;
-                        int temp1Count = temp1.count();
-                        int temp2Count = temp2.count();
-
-                        if (temp1Count == 0 && temp2Count == 0)
-                        {
-                            type = "JsonObject";
-                            temp = new JsonObject();
-                        }
-                        else if(temp1Count == 0)
-                        {
-                            type = type2;
-                            temp = temp2;
-                        }
-                        else if(temp2Count == 0)
-                        {
-                            type = type1;
-                            temp = temp1;
-                        }
-                        else if (type1 == "JsonArray" && type2 == "JsonArray")
-                        {
-                            type = "JsonArray";
-                            temp = JsonObjectFactory.merge(temp1, temp2, overwrite, recursive);
-                        }
-                        else
-                        {
-                            type = "JsonObject";
-                            temp = JsonObjectFactory.merge(temp1, temp2, overwrite, recursive);
-                        }
-
-                        newObj.set(type, key, temp);
-                        continue;
-                    }
+                    JsonObject temp1 = (JsonObject)temp1Object;
+                    JsonObject temp2 = (JsonObject)temp2Object;
+                    type = "JsonObject";
+                    temp = JsonObjectFactory.merge(temp1, temp2, overwrite, recursive);
                 }
-                
-                if (overwrite && Tools.in_array(key, keys2))
+                // special treatment for arrays
+                else if (type1 == "JsonArray" && type2 == "JsonArray")
+                {
+                    JsonObject temp1 = (JsonObject)temp1Object;
+                    JsonObject temp2 = (JsonObject)temp2Object;
+                    type = "JsonArray";
+                    temp = JsonObjectFactory.merge(temp1, temp2);
+                }
+                // for the rest we simple insert the value depending on overwrite parameter
+                // overwrite is enabled and value is in the second object
+                else if (overwrite && Tools.in_array(key, keys2))
                 {
                     temp = obj2.get(key, ref type);
                 }
+                // value is in the first object
                 else if (Tools.in_array(key, keys1))
                 {
                     temp = obj1.get(key, ref type);
                 }
+                // value is in the second object only
                 else if (Tools.in_array(key, keys2))
                 {
                     temp = obj2.get(key, ref type);
+                }
+
+                if (type == "JsonObject" || type == "JsonArray")
+                {
+                    temp = ((JsonObject)temp).Clone();
                 }
 
                 newObj.set(type, key, temp);
@@ -255,6 +237,17 @@ namespace LearnositySDK.Utils
         public static bool JSONEquality(JsonObject JSON1, JsonObject JSON2)
         {
             return JSONEquality(JSON1.toJson(), JSON2.toJson());
+        }
+
+        /// <summary>
+        /// Checks whether two JsonObjects are equal
+        /// </summary>
+        /// <param name="JSON1">first JsonObject to compare</param>
+        /// <param name="JSON2">second JsonObject to compare</param>
+        /// <returns></returns>
+        public static bool JSONEquality(JsonObject JSON1, string JSON2)
+        {
+            return JSONEquality(JSON1.toJson(), JSON2);
         }
     }
 }

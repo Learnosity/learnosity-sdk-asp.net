@@ -70,7 +70,7 @@ namespace LearnositySDK.Request
         /// <param name="secret">Private key</param>
         /// <param name="requestPacketJson">Request packet</param>
         /// <param name="action">Action for the request</param>
-        /// <param name="callback">Callback to process JSON data</param>
+        /// <param name="callback">Callback to process JSON data. Returning false in callback breaks from the loop of recursive requests.</param>
         /// <returns>Instance of the Remote class</returns>
         public JsonObject requestRecursive(string url, string securityPacketJson, string secret, string requestPacketJson = null, string action = null, ProcessData callback = null)
         {
@@ -93,7 +93,7 @@ namespace LearnositySDK.Request
         /// <param name="secret">Private key</param>
         /// <param name="requestPacket">Request packet</param>
         /// <param name="action">Action for the request</param>
-        /// <param name="callback">Callback to process JSON data</param>
+        /// <param name="callback">Callback to process JSON data. Returning false in callback breaks from the loop of recursive requests.</param>
         /// <returns>Instance of the Remote class</returns>
         public JsonObject requestRecursive(string url, JsonObject securityPacket, string secret, JsonObject requestPacket = null, string action = null, ProcessData callback = null)
         {
@@ -108,7 +108,7 @@ namespace LearnositySDK.Request
         /// <param name="secret">Private key</param>
         /// <param name="requestPacket">Request packet</param>
         /// <param name="action">Action for the request</param>
-        /// <param name="callback">Callback to process JSON data</param>
+        /// <param name="callback">Callback to process JSON data. Returning false in callback breaks from the loop of recursive requests.</param>
         /// <returns>Instance of the Remote class</returns>
         private JsonObject handleRequestRecursive(string url, JsonObject securityPacket, string secret, JsonObject requestPacket = null, string action = null, ProcessData callback = null)
         {
@@ -135,7 +135,11 @@ namespace LearnositySDK.Request
                 {
                     if (callback != null)
                     {
-                        callback(data.toJson());
+                        // return if callback returns false
+                        if (!callback(data.toJson()))
+                        {
+                            return response;
+                        }
                     }
                     else
                     {

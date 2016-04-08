@@ -59,6 +59,7 @@
     <Compile Include="LearnositySDKUnitTests.cs" />
     <Compile Include="MergingObjectsUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolIsEmptyUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LearnositySDK\LearnositySDK.csproj">

@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace LearnositySDK.Utils
 {
-    class Tools
+    public class Tools
     {
         /// <summary>
         /// Returns integer from hexadecimal representation

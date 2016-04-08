@@ -67,7 +67,7 @@ namespace LearnositySDK.Examples
         /// Run the request using recursive version of DataApi and returns result
         /// </summary>
         /// <returns></returns>
-        public static string DataApiRecursive()
+        public static string DataApiRecursive(int maxIterations = -1, bool noCallback = false)
         {
             string url = "https://data.learnosity.com/stable/sessions/responses";
 
@@ -85,7 +85,16 @@ namespace LearnositySDK.Examples
             ProcessData callback = new ProcessData(Data.DataApiRecursiveCallback);
 
             DataApi da = new DataApi();
-            JsonObject jo = da.requestRecursive(url, security, secret, request, action, callback);
+            JsonObject jo;
+
+            if (noCallback)
+            {
+                jo = da.requestRecursive(url, security, secret, request, action, null, maxIterations);
+            }
+            else
+            {
+                jo = da.requestRecursive(url, security, secret, request, action, callback, maxIterations);
+            }
 
             return jo.toJson();
         }

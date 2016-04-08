@@ -26,11 +26,11 @@ namespace LearnositySDKExample.Controllers
             return View();
         }
 
-        public ActionResult DataApiRecursive()
+        public ActionResult DataApiRecursive(int maxIterations = -1, bool noCallback = false)
         {
             ViewBag.heading = "Data API";
             ViewBag.description = "<p>Use the Data API to retrieve or update content in the Learnosity Assessment Platform.</p>";
-            ViewBag.RESULT = LearnositySDK.Examples.Data.DataApiRecursive();
+            ViewBag.RESULT = LearnositySDK.Examples.Data.DataApiRecursive(maxIterations, noCallback);
             return View();
         }
 

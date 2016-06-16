@@ -403,33 +403,23 @@ namespace LearnositySDK.Request
 
                         JsonObject questionsApiActivity = new JsonObject();
 
-                        string[] arrayToHash;
+                        List<string> signatureList = new List<string>();
+
+                        signatureList.Add(this.securityPacket.getString("consumer_key"));
+                        signatureList.Add(domain);
+                        signatureList.Add(this.securityPacket.getString("timestamp"));
 
                         if (Tools.array_key_exists("expires", this.securityPacket))
                         {
-                            arrayToHash = new string[] {
-                                this.securityPacket.getString("consumer_key"),
-                                domain,
-                                this.securityPacket.getString("timestamp"),
-                                this.securityPacket.getString("expires"),
-                                this.securityPacket.getString("user_id"),
-                                this.secret
-                            };
-
+                            signatureList.Add(this.securityPacket.getString("expires"));
                             questionsApiActivity.set("expires", this.securityPacket.getString("expires"));
                             questionsApi.remove("expires");
                         }
-                        else {
-                            arrayToHash = new string[] {
-                                this.securityPacket.getString("consumer_key"),
-                                domain,
-                                this.securityPacket.getString("timestamp"),
-                                this.securityPacket.getString("user_id"),
-                                this.secret
-                            };
-                        }
-                        
-                        string signature = this.hashValue(arrayToHash);
+
+                        signatureList.Add(this.securityPacket.getString("user_id"));
+                        signatureList.Add(this.secret);
+
+                        string signature = this.hashValue(signatureList.ToArray());
 
                         questionsApiActivity.set("consumer_key", this.securityPacket.getString("consumer_key"));
                         questionsApiActivity.set("timestamp", this.securityPacket.getString("timestamp"));

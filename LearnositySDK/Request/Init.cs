@@ -145,7 +145,7 @@ namespace LearnositySDK.Request
             this.action = action;
 
             this.signRequestData = true;
-            this.validSecurityKeys = new string[4] { "consumer_key", "domain", "timestamp", "user_id" };
+            this.validSecurityKeys = new string[5] { "consumer_key", "domain", "timestamp", "expires", "user_id" };
             this.validServices = new string[7] { "assess", "author", "data", "events", "items", "questions", "reports" };
             this.algorithm = "sha256";
 
@@ -403,13 +403,33 @@ namespace LearnositySDK.Request
 
                         JsonObject questionsApiActivity = new JsonObject();
 
-                        string signature = this.hashValue( new string[] {
-                            this.securityPacket.getString("consumer_key"),
-                            domain,
-                            this.securityPacket.getString("timestamp"),
-                            this.securityPacket.getString("user_id"),
-                            this.secret
-                        } );
+                        string[] arrayToHash;
+
+                        if (Tools.array_key_exists("expires", this.securityPacket))
+                        {
+                            arrayToHash = new string[] {
+                                this.securityPacket.getString("consumer_key"),
+                                domain,
+                                this.securityPacket.getString("timestamp"),
+                                this.securityPacket.getString("expires"),
+                                this.securityPacket.getString("user_id"),
+                                this.secret
+                            };
+
+                            questionsApiActivity.set("expires", this.securityPacket.getString("expires"));
+                            questionsApi.remove("expires");
+                        }
+                        else {
+                            arrayToHash = new string[] {
+                                this.securityPacket.getString("consumer_key"),
+                                domain,
+                                this.securityPacket.getString("timestamp"),
+                                this.securityPacket.getString("user_id"),
+                                this.secret
+                            };
+                        }
+                        
+                        string signature = this.hashValue(arrayToHash);
 
                         questionsApiActivity.set("consumer_key", this.securityPacket.getString("consumer_key"));
                         questionsApiActivity.set("timestamp", this.securityPacket.getString("timestamp"));

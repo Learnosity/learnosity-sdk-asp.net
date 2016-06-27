@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace LearnositySDK.Utils
 {
@@ -626,7 +627,7 @@ namespace LearnositySDK.Utils
                     }
                     else if (this.df.ContainsKey(key))
                     {
-                        sb.Append(this.df[key].ToString());
+                        sb.Append(this.df[key].ToString("R", CultureInfo.InvariantCulture));
                     }
                     else if (this.ds.ContainsKey(key))
                     {
@@ -677,7 +678,7 @@ namespace LearnositySDK.Utils
                         sb.Append(",");
                     }
 
-                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString());
+                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString("R", CultureInfo.InvariantCulture));
 
                     index++;
                 }

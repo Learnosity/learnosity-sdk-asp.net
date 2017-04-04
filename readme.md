@@ -30,11 +30,11 @@ This project uses only one external dependency: Newtonsoft.Json library (http://
 
 ## Installation
 
-There is no installation required. Once you download the code you just need to open the corresponding solution file to your Visual Studio version.
+To install Learnosity SDK .NET NuGet package, run the following command in the Package Manager Console
 
-For Visual Studio 2010 users please use: LearnositySDK-VS2010.sln.
-
-For newer Visual Studio versions use default solution file: LearnositySDK.sln
+```
+PM> Install-Package LearnositySDK
+```
 
 ## Usage
 

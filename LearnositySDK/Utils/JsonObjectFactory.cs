@@ -96,7 +96,7 @@ namespace LearnositySDK.Utils
                     jsonObject.set(key, (int)item);
                     break;
                 case JTokenType.Float:
-                    jsonObject.set(key, (float)item);
+                    jsonObject.set(key, (decimal)item);
                     break;
                 case JTokenType.String:
                     jsonObject.set(key, (string)item);

@@ -14,7 +14,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void inputJSONEqualsOutput()
         {
-            string JSON = "{\"boolean\":true,\"integer\":1,\"float\":1.2,\"string\":\"string\",\"object\":{\"property\":null},\"array\":[null,[2]]}";
+            string JSON = "{\"boolean\":true,\"integer\":1,\"decimal\":1.2,\"string\":\"string\",\"object\":{\"property\":null},\"array\":[null,[2]]}";
             JsonObject jo = JsonObjectFactory.fromString(JSON);
             string outputJSON = jo.toJson();
 
@@ -45,7 +45,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void JSONEqualityMethodWorksProperly()
         {
-            string JSON = "{\"boolean\":true,\"integer\":1,\"float\":1.2,\"string\":\"string\",\"object\":{\"property\":null},\"array\":[null,[2]]}";
+            string JSON = "{\"boolean\":true,\"integer\":1,\"decimal\":1.2,\"string\":\"string\",\"object\":{\"property\":null},\"array\":[null,[2]]}";
 
             // building a structure for comparison purposes
             JsonObject jo = new JsonObject();
@@ -54,7 +54,7 @@ namespace UnitTestProject1
             JsonObject jaInner = new JsonObject(true);
             jo.set("boolean", true);
             jo.set("integer", 1);
-            jo.set("float", 1.2f);
+            jo.set("decimal", 1.2m);
             jo.set("string", "string");
             jo.set("object", joInner);
             jo.set("array", ja);

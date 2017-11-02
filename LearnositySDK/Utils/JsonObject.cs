@@ -14,7 +14,7 @@ namespace LearnositySDK.Utils
         private bool array;
         private int arrayIndex;
         private Dictionary<string, int> di;
-        private Dictionary<string, float> df;
+        private Dictionary<string, decimal> dd;
         private Dictionary<string, string> ds;
         private Dictionary<string, JsonObject> dj;
         private Dictionary<string, bool> db;
@@ -27,13 +27,13 @@ namespace LearnositySDK.Utils
             this.array = isArray;
             this.arrayIndex = 0; // lastInsertedIndex
             this.di = new Dictionary<string, int>();
-            this.df = new Dictionary<string, float>();
+            this.dd = new Dictionary<string, decimal>();
             this.ds = new Dictionary<string, string>();
             this.dj = new Dictionary<string, JsonObject>();
             this.db = new Dictionary<string, bool>();
             this.da = new Dictionary<string, JsonObject>();
             this.dt = new Dictionary<string, JToken>();
-            this.types = new string[7] { "int", "string", "JsonObject", "bool", "JsonArray", "float", "NULL" };
+            this.types = new string[7] { "int", "string", "JsonObject", "bool", "JsonArray", "decimal", "NULL" };
         }
 
         public bool isArray()
@@ -55,7 +55,7 @@ namespace LearnositySDK.Utils
         /// Sets/adds the value
         /// </summary>
         /// <param name="value"></param>
-        public void set(float value)
+        public void set(decimal value)
         {
             this.set(this.arrayIndex, value);
             this.arrayIndex++;
@@ -138,7 +138,7 @@ namespace LearnositySDK.Utils
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void set(int key, float value)
+        public void set(int key, decimal value)
         {
             this.set(key.ToString(), value);
         }
@@ -208,9 +208,9 @@ namespace LearnositySDK.Utils
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void set(string key, float value)
+        public void set(string key, decimal value)
         {
-            this.set("float", key, value);
+            this.set("decimal", key, value);
         }
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace LearnositySDK.Utils
         {
             this.db.Remove(key);
             this.di.Remove(key);
-            this.df.Remove(key);
+            this.dd.Remove(key);
             this.ds.Remove(key);
             this.dj.Remove(key);
             this.da.Remove(key);
@@ -325,7 +325,7 @@ namespace LearnositySDK.Utils
                     break;
                 case 4: this.da.Add(key, (JsonObject)value);
                     break;
-                case 5: this.df.Add(key, (float)value);
+                case 5: this.dd.Add(key, (decimal)value);
                     break;
                 case 6: this.dt.Add(key, (JToken)value);
                     break;
@@ -453,10 +453,10 @@ namespace LearnositySDK.Utils
                 return this.da[key];
             }
 
-            if (this.df.ContainsKey(key))
+            if (this.dd.ContainsKey(key))
             {
-                type = "float";
-                return this.df[key];
+                type = "decimal";
+                return this.dd[key];
             }
 
             if (this.dt.ContainsKey(key))
@@ -530,7 +530,7 @@ namespace LearnositySDK.Utils
                 l.Add(item.Key);
             }
 
-            foreach (KeyValuePair<string, float> item in this.df)
+            foreach (KeyValuePair<string, decimal> item in this.dd)
             {
                 l.Add(item.Key);
             }
@@ -578,7 +578,7 @@ namespace LearnositySDK.Utils
             count += this.db.Count;
             count += this.dj.Count;
             count += this.da.Count;
-            count += this.df.Count;
+            count += this.dd.Count;
             count += this.dt.Count;
 
             return count;
@@ -625,9 +625,9 @@ namespace LearnositySDK.Utils
                     {
                         sb.Append(this.di[key].ToString());
                     }
-                    else if (this.df.ContainsKey(key))
+                    else if (this.dd.ContainsKey(key))
                     {
-                        sb.Append(this.df[key].ToString("R", CultureInfo.InvariantCulture));
+                        sb.Append(this.dd[key].ToString(CultureInfo.InvariantCulture));
                     }
                     else if (this.ds.ContainsKey(key))
                     {
@@ -671,14 +671,14 @@ namespace LearnositySDK.Utils
                     index++;
                 }
 
-                foreach (KeyValuePair<string, float> item in this.df)
+                foreach (KeyValuePair<string, decimal> item in this.dd)
                 {
                     if (index > 0)
                     {
                         sb.Append(",");
                     }
 
-                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString("R", CultureInfo.InvariantCulture));
+                    sb.Append(Json.encode(item.Key) + ":" + item.Value.ToString(CultureInfo.InvariantCulture));
 
                     index++;
                 }

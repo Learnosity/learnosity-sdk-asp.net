@@ -627,7 +627,7 @@ namespace LearnositySDK.Utils
                     }
                     else if (this.dd.ContainsKey(key))
                     {
-                        sb.Append(this.dd[key].ToString("R", CultureInfo.InvariantCulture));
+                        sb.Append(this.dd[key].ToString(CultureInfo.InvariantCulture));
                     }
                     else if (this.ds.ContainsKey(key))
                     {

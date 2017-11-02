@@ -140,7 +140,7 @@ namespace UnitTestProject1
             jo1a.setNull();
             jo1a.set("string");
             jo1a.set(1);
-            jo1a.set(1.2f);
+            jo1a.set(1.2m);
             jo1a.set(jo1ao1);
             jo1a.set(jo1ao2);
             jo1ao1.set("a", "a1");
@@ -158,7 +158,7 @@ namespace UnitTestProject1
             jo2a.setNull();
             jo2a.set("string");
             jo2a.set(1);
-            jo2a.set(1.2f);
+            jo2a.set(1.2m);
             jo2a.set(jo2ao1);
             jo2a.set(jo2ao2);
             jo2ao1.set("a", "a2");

@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LearnositySDK.Utils;
 using Newtonsoft.Json.Linq;
 
-namespace UnitTestProject1
+namespace LearnositySDKUnitTests
 {
     /// <summary>
     /// Summary description for CheckingEqualityUnitTests

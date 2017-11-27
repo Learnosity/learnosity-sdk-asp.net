@@ -149,6 +149,11 @@ namespace LearnositySDK.Request
                         {
                             return response;
                         }
+                        else
+                        {
+                            // or merge if it returned true
+                            response = Tools.array_merge(response, data.getJsonObject("data"));
+                        }
                     }
                     else
                     {

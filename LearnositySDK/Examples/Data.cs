@@ -80,6 +80,10 @@ namespace LearnositySDK.Examples
             JsonObject request = new JsonObject();
             request.set("limit", 1000);
 
+            // we only look for responses from this day, so there's not too many
+            string mintime = DateTime.UtcNow.Date.ToString("yyyy-MM-dd");
+            request.set("mintime", mintime);
+
             string action = "get";
 
             ProcessData callback = new ProcessData(Data.DataApiRecursiveCallback);

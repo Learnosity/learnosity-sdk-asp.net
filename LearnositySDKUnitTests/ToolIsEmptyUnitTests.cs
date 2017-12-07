@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LearnositySDK.Utils;
 
-namespace UnitTestProject1
+namespace LearnositySDKUnitTests
 {
     /// <summary>
     /// Summary description for ToolIsEmptyUnitTests

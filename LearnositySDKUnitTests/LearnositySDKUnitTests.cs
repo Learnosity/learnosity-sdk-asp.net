@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LearnositySDK.Utils;
 
-namespace UnitTestProject1
+namespace LearnositySDKUnitTests
 {
     [TestClass]
     public class LearnositySDKUnitTests

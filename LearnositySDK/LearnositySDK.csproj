@@ -12,6 +12,12 @@
     <PackageReleaseNotes>Update to .Net Standard</PackageReleaseNotes>
     <Copyright>Copyright Learnosity 2017 (c)</Copyright>
     <PackageTags>learnosity sdk asp .net</PackageTags>
+    <Version>0.8.0</Version>
+    <PackageLicenseUrl>https://github.com/Learnosity/learnosity-sdk-asp.net/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Learnosity/learnosity-sdk-asp.net</PackageProjectUrl>
+    <PackageIconUrl>https://www.learnosity.com/static/img/logos/learnositylogoforfacebook.jpg</PackageIconUrl>
+    <RepositoryUrl>https://www.learnosity.com/static/img/logos/learnositylogoforfacebook.jpg</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

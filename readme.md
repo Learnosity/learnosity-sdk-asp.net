@@ -16,17 +16,15 @@ In addition data and schemas services use `Request/Remote` class to perform HTTP
 
 ## Contents
 
-There are two solution files:
- * Default: LearnositySDK.sln
- * Visual Studio 2010: LearnositySDK-VS2010.sln
-
-Solution consists in one project: LearnositySDK
+Solution consists in two projects:
+ * LearnositySDK
+ * LearnositySDKUnitTests
 
 ### LearnositySDK
 
-This project is a class library built in compatibility with .NET 3.5.
+This project is a class library built in compatibility with .NET Standard 2.0
 
-This project uses only one external dependency: Newtonsoft.Json library (http://james.newtonking.com/json), also fully compatible with .NET 3.5 (other versions are supported as well).
+This project uses only one external dependency: Newtonsoft.Json library (http://james.newtonking.com/json)
 
 ## Installation
 

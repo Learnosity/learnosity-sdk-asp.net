@@ -20,4 +20,7 @@
     <ProjectReference Include="..\LearnositySDK\LearnositySDK.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="LearnositySDKUnitTests.cs" />
+  </ItemGroup>
 </Project>

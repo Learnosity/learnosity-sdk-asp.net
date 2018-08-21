@@ -222,7 +222,7 @@ namespace LearnositySDK.Request
         /// <summary>
         /// Returns the size of the request body
         /// </summary>
-        /// <param name="bytes">in bytes or nicely formatted (default)</param>
+        /// <param name="inBytes">in bytes or nicely formatted (default)</param>
         /// <returns></returns>
         public string getSize(bool inBytes = false)
         {

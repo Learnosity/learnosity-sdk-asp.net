@@ -94,7 +94,6 @@ namespace LearnositySDK.Utils
         /// <summary>
         /// Sets/adds the value
         /// </summary>
-        /// <param name="key"></param>
         /// <param name="value"></param>
         public void set(JToken value)
         {
@@ -105,8 +104,6 @@ namespace LearnositySDK.Utils
         /// <summary>
         /// Sets/adds NULL
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
         public void setNull()
         {
             this.set(JToken.Parse("null"));
@@ -187,7 +184,6 @@ namespace LearnositySDK.Utils
         /// Sets/adds NULL
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="value"></param>
         public void setNull(int key)
         {
             this.set(key, JToken.Parse("null"));
@@ -254,7 +250,6 @@ namespace LearnositySDK.Utils
         /// Sets/adds NULL
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="value"></param>
         public void setNull(string key)
         {
             this.set(key, JToken.Parse("null"));

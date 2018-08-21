@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnositySDK", "LearnositySDK\LearnositySDK.csproj", "{DC1B295A-F21E-4A3C-A4DA-76130D281546}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnositySDK", "LearnositySDK\LearnositySDK.csproj", "{DC1B295A-F21E-4A3C-A4DA-76130D281546}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnositySDKUnitTests", "LearnositySDKUnitTests\LearnositySDKUnitTests.csproj", "{29D6AB6C-C34D-4FAE-A433-E59C0B990DB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnositySDKUnitTests", "LearnositySDKUnitTests\LearnositySDKUnitTests.csproj", "{29D6AB6C-C34D-4FAE-A433-E59C0B990DB6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DC1B295A-F21E-4A3C-A4DA-76130D281546} = {DC1B295A-F21E-4A3C-A4DA-76130D281546}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnositySDKIntegrationTests", "LearnositySDKIntegrationTests\LearnositySDKIntegrationTests.csproj", "{EC7DF4B1-1A89-40CA-99B1-E059D54EA373}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{29D6AB6C-C34D-4FAE-A433-E59C0B990DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29D6AB6C-C34D-4FAE-A433-E59C0B990DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29D6AB6C-C34D-4FAE-A433-E59C0B990DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC7DF4B1-1A89-40CA-99B1-E059D54EA373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC7DF4B1-1A89-40CA-99B1-E059D54EA373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC7DF4B1-1A89-40CA-99B1-E059D54EA373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC7DF4B1-1A89-40CA-99B1-E059D54EA373}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

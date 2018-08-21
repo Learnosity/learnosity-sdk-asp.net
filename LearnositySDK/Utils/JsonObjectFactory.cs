@@ -60,7 +60,7 @@ namespace LearnositySDK.Utils
         /// <summary>
         /// Converts JArray to JsonObject
         /// </summary>
-        /// <param name="jObject"></param>
+        /// <param name="jArray"></param>
         /// <returns></returns>
         public static JsonObject fromJArray(JArray jArray)
         {
@@ -80,7 +80,9 @@ namespace LearnositySDK.Utils
         /// <summary>
         /// Converts JToken to JsonObject
         /// </summary>
-        /// <param name="jObject"></param>
+        /// <param name="jsonObject"></param>
+        /// <param name="key"></param>
+        /// <param name="item"></param>
         /// <returns></returns>
         public static JsonObject fromJToken(JsonObject jsonObject, string key, JToken item)
         {

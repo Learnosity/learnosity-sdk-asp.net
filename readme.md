@@ -27,7 +27,7 @@ Solution consists in 3 projects:
 
 This project is a class library built in compatibility with .NET Standard 2.0
 
-This project uses only one external dependency: Newtonsoft.Json library (http://james.newtonking.com/json)
+This project uses only one external dependency: [Newtonsoft.Json](https://www.newtonsoft.com/json)
 
 ## Installation
 
@@ -238,7 +238,7 @@ JsonObject jo = JsonObjectFactory.fromString(json);
 ```
 
 ## Version
-You can find the latest version of the SDK as a self-contained ZIP file in the [GitHub Releases].
+You can find the latest version of the SDK as a self-contained ZIP file in the [GitHub Releases](https://github.com/Learnosity/learnosity-sdk-asp.net/releases).
 
 ## Examples
 

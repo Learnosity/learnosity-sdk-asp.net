@@ -1,5 +1,7 @@
 # Learnosity SDK - ASP.NET / C#
 
+[![Build Status](https://travis-ci.org/Learnosity/learnosity-sdk-asp.net.svg?branch=master)](https://travis-ci.org/Learnosity/learnosity-sdk-asp.net)
+
 This repository contains full .NET solution.
 
 LearnositySDK library helps you to generate request JSON for following services:
@@ -16,9 +18,10 @@ In addition data and schemas services use `Request/Remote` class to perform HTTP
 
 ## Contents
 
-Solution consists in two projects:
+Solution consists in 3 projects:
  * LearnositySDK
  * LearnositySDKUnitTests
+ * LearnositySDKIntegrationTests
 
 ### LearnositySDK
 
@@ -235,7 +238,7 @@ JsonObject jo = JsonObjectFactory.fromString(json);
 ```
 
 ## Version
-Version v0.1.0 - June 2014
+You can find the latest version of the SDK as a self-contained ZIP file in the [GitHub Releases].
 
 ## Examples
 

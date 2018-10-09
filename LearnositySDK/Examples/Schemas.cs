@@ -9,7 +9,7 @@ namespace LearnositySDK.Examples
     {
         public static string Simple(out string URL)
         {
-            string url = "http://schemas.learnosity.com/stable/questions/templates";
+            string url = "http://schemas.learnosity.com/v1/questions/templates";
             Remote remote = new Remote();
             remote.get(url);
 

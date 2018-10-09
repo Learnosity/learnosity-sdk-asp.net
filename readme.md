@@ -132,7 +132,7 @@ You'll call either get() or post() with the following arguments:
  * [JsonObject]                         Options
 
 ```
-string url = "http://schemas.learnosity.com/stable/questions/templates";
+string url = "http://schemas.learnosity.com/v1/questions/templates";
 Remote remote = new Remote();
 remote.get(url);
 string body = remote.getBody();
@@ -144,7 +144,7 @@ string body = remote.getBody();
 A string URL, including schema and path. Eg:
 
 ```
-https://schemas.learnosity.com/stable/questions/templates
+https://schemas.learnosity.com/v1/questions/templates
 ```
 
 **Data**<br>

@@ -16,7 +16,7 @@ namespace LearnositySDK.Examples
         public static string Simple(out string JSON)
         {
             string service = "data";
-            string url = "https://data.learnosity.com/stable/sessions/responses";
+            string url = "https://data.learnosity.com/v1/sessions/responses";
 
             JsonObject security = new JsonObject();
             security.set("consumer_key", Credentials.ConsumerKey);
@@ -44,7 +44,7 @@ namespace LearnositySDK.Examples
         /// <returns></returns>
         public static string DataApi()
         {
-            string url = "https://data.learnosity.com/stable/sessions/responses";
+            string url = "https://data.learnosity.com/v1/sessions/responses";
 
             JsonObject security = new JsonObject();
             security.set("consumer_key", Credentials.ConsumerKey);
@@ -69,7 +69,7 @@ namespace LearnositySDK.Examples
         /// <returns></returns>
         public static string DataApiRecursive()
         {
-            string url = "https://data.learnosity.com/stable/sessions/responses";
+            string url = "https://data.learnosity.com/v1/sessions/responses";
 
             JsonObject security = new JsonObject();
             security.set("consumer_key", Credentials.ConsumerKey);

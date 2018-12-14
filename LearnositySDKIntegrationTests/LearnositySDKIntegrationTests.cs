@@ -10,7 +10,7 @@ namespace LearnositySDKIntegrationTests
         private readonly string consumerKey = Config.ConsumerKey;
         private readonly string consumerSecret = Config.ConsumerSecret;
         private readonly string domain = Config.Domain;
-        private readonly string baseDataAPIUrl = BuildDataAPIBaseUrl(Config.ENVIRONMENT, Config.REGION, Config.VER_DataAPI);
+        private readonly string baseDataAPIUrl = BuildDataAPIBaseUrl(Config.ENV, Config.REGION, Config.VER_DataAPI);
 
         [Fact]
         public void DataAPIGetItems()

@@ -10,7 +10,7 @@ namespace LearnositySDKIntegrationTests
         private readonly string consumerKey = Config.ConsumerKey;
         private readonly string consumerSecret = Config.ConsumerSecret;
         private readonly string domain = Config.Domain;
-        private readonly string baseDataAPIUrl = buildDataAPIBaseUrl(Config.ENV, Config.REGION, Config.VER_DataAPI);
+        private readonly string baseDataAPIUrl = BuildDataAPIBaseUrl(Config.ENV, Config.REGION, Config.VER_DataAPI);
 
         [Fact]
         public void DataAPIGetItems()
@@ -42,7 +42,7 @@ namespace LearnositySDKIntegrationTests
             );
         }
 
-        private static string buildDataAPIBaseUrl(string env, string region, string version)
+        private static string BuildDataAPIBaseUrl(string env, string region, string version)
         {
             string regionDomain = "";
             string envDomain = "";
@@ -53,12 +53,12 @@ namespace LearnositySDKIntegrationTests
                 regionDomain = string.Concat("-", region);
             }
 
-            if (!string.IsNullOrEmpty(env) && env.CompareTo("prod") != 0)
+            if (!string.IsNullOrEmpty(env) && string.Compare(env, "prod") != 0)
             {
                 envDomain = "." + env;
             }
 
-            if (!string.IsNullOrEmpty(env) && env.CompareTo("vg") == 0)
+            if (!string.IsNullOrEmpty(env) && string.Compare(env, "vg") == 0)
             {
                 versionPath = "latest";
             }

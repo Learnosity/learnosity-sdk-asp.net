@@ -78,6 +78,11 @@ namespace LearnositySDK.Request
         private string algorithm;
 
         /// <summary>
+        /// Determines if telemetry is enabled
+        /// </summary>
+        private bool __telemetry_enabled = true;
+
+        /// <summary>
         /// Instantiate this class with all security and request data. It will be used to create a signature.
         /// </summary>
         /// <param name="service"></param>
@@ -153,6 +158,7 @@ namespace LearnositySDK.Request
             //try
             //{
                 this.validate(this.service, ref this.securityPacket, this.secret, this.requestPacket, this.action);
+                this.addTelemetryData();
                 this.requestString = this.generateRequestString();
                 this.setServiceOptions();
                 this.securityPacket.set("signature", this.generateSignature());
@@ -182,6 +188,11 @@ namespace LearnositySDK.Request
             }
             
             return request;
+        }
+
+        public string generateSignaturePublic()
+        {
+            return this.generateSignature();
         }
 
         /// <summary>
@@ -518,5 +529,41 @@ namespace LearnositySDK.Request
                 throw new Exception("The `secret` argument must be a valid string");
             }
         }
+
+        public void addTelemetryData()
+        {
+            if (this.isTelemetryEnabled()) {
+                if (this.requestPacket.getJsonObject("meta") != null)
+                {
+                    JsonObject meta = this.requestPacket.getJsonObject("meta");
+                    meta.set("sdk", this.getSdkMeta());
+                    this.requestPacket.set("meta", meta);
+                }
+                else {
+                    JsonObject meta = new JsonObject();
+                    meta.set("sdk", this.getSdkMeta());
+                    this.requestPacket.set("meta", meta);
+                }
+                Console.WriteLine(this.requestPacket.toJson());
+            }
+        }
+
+        public bool isTelemetryEnabled()
+        {
+            return this.__telemetry_enabled;
+        }
+
+        public JsonObject getSdkMeta()
+        {
+            JsonObject sdkMeta = new JsonObject();
+            sdkMeta.set("version", "test version");
+            sdkMeta.set("lang", "test lang");
+            sdkMeta.set("lang_version", "test lang version");
+            sdkMeta.set("platform", "test platform");
+            sdkMeta.set("platform_version", "test platform version");
+
+            return sdkMeta;
+        }
+    
     }
 }

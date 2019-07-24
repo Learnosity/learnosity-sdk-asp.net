@@ -78,9 +78,9 @@ namespace LearnositySDK.Request
         private string algorithm;
 
         /// <summary>
-        /// Determines if telemetry is enabled
+        /// Determines if telemetry is enabled; default is true
         /// </summary>
-        private bool __telemetry_enabled = true;
+        private static bool __telemetry_enabled = true;
 
         /// <summary>
         /// Instantiate this class with all security and request data. It will be used to create a signature.
@@ -530,6 +530,25 @@ namespace LearnositySDK.Request
             }
         }
 
+        /// <summary>
+        /// Turns telemetry off, preventing the API to send usage information
+        /// </summary>
+        public static void disableTelemetry()
+        {
+            __telemetry_enabled = false;
+        }
+
+        /// <summary>
+        /// Turns telemetry on, allowing the API to send usage information
+        /// </summary>
+        public static void enableTelemetry()
+        {
+            __telemetry_enabled = true;
+        }
+
+        /// <summary>
+        /// Adds a meta field with SDK information in it to the requestPacket
+        /// </summary>
         public void addTelemetryData()
         {
             if (this.isTelemetryEnabled()) {
@@ -544,13 +563,12 @@ namespace LearnositySDK.Request
                     meta.set("sdk", this.getSdkMeta());
                     this.requestPacket.set("meta", meta);
                 }
-                Console.WriteLine(this.requestPacket.toJson());
             }
         }
 
         public bool isTelemetryEnabled()
         {
-            return this.__telemetry_enabled;
+            return __telemetry_enabled;
         }
 
         public JsonObject getSdkMeta()

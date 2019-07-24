@@ -69,5 +69,56 @@ namespace LearnositySDKIntegrationTests
 
             return "https://data" + regionDomain + envDomain + ".learnosity.com/" + versionPath;
         }
+
+        [Fact]
+        public void InitGeneratesExactSameSignature()
+        {
+            string action = "get";
+            string timestamp = "20140626-0528";
+
+            JsonObject security = new JsonObject();
+            security.set("consumer_key", this.consumerKey);
+            security.set("domain", this.domain);
+            security.set("timestamp", timestamp);
+
+            JsonObject request = new JsonObject();
+            request.set("limit", 100);
+
+            Init.disableTelemetry();
+            Init init = new Init("data", security, this.consumerSecret, request, action);
+
+            // Assert signature is still the same
+            Assert.Equal(
+                init.generateSignaturePublic(),
+                "e1eae0b86148df69173cb3b824275ea73c9c93967f7d17d6957fcdd299c8a4fe"
+            );
+
+            // Assert telemetry is turned off
+            Assert.False(init.isTelemetryEnabled());
+        }
+
+        [Fact]
+        public void InitGenerateBuildsNonEmptyRequest()
+        {
+            string action = "get";
+            string timestamp = "20140626-0528";
+
+            JsonObject security = new JsonObject();
+            security.set("consumer_key", this.consumerKey);
+            security.set("domain", this.domain);
+            security.set("timestamp", timestamp);
+
+            JsonObject request = new JsonObject();
+            request.set("page", 1);
+
+            Init init = new Init("data", security, this.consumerSecret, request, action);
+            string generatedString = init.generate();
+
+            // Assert generated string is not empty
+            Assert.NotEmpty(generatedString);
+
+            // Assert telemetry is turned on
+            Assert.True(init.isTelemetryEnabled());
+        }
     }
 }

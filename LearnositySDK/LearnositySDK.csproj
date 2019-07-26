@@ -5,10 +5,9 @@
     <AssemblyName>LearnositySDK</AssemblyName>
     <RootNamespace>LearnositySDK</RootNamespace>
     <PackageId>LearnositySDK</PackageId>
-    <PackageVersion>0.8.0</PackageVersion>
+    <PackageVersion>0.9.0</PackageVersion>
     <Authors>Learnosity</Authors>
     <Description>Learnosity SDK for ASP.NET / C#</Description>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Update to .Net Standard</PackageReleaseNotes>
     <Copyright>Copyright Learnosity 2017 (c)</Copyright>
     <PackageTags>learnosity sdk asp .net</PackageTags>

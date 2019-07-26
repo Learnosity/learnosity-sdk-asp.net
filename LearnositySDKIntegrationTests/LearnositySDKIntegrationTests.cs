@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using System.IO;
 using LearnositySDK.Utils;
 using LearnositySDK.Request;
 

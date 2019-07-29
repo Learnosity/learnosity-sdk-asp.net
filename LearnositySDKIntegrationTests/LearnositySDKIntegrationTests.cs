@@ -96,6 +96,7 @@ namespace LearnositySDKIntegrationTests
 
             // Assert telemetry is turned off
             Assert.False(init.isTelemetryEnabled());
+            Init.enableTelemetry();
         }
 
         [Fact]

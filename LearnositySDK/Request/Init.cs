@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 using LearnositySDK.Utils;
 using System.Web;
 using System.Runtime.InteropServices;
-using System.Reflection;
 
 namespace LearnositySDK.Request
 {
@@ -596,7 +593,7 @@ namespace LearnositySDK.Request
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
-                return "windows";
+                return "win";
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))

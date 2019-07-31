@@ -190,11 +190,6 @@ namespace LearnositySDK.Request
             return request;
         }
 
-        public string generateSignaturePublic()
-        {
-            return this.generateSignature();
-        }
-
         /// <summary>
         /// Generate a signature hash for the request, this includes:
         /// - the security credentials
@@ -202,7 +197,7 @@ namespace LearnositySDK.Request
         /// - the `action` value if passed
         /// </summary>
         /// <returns>A signature hash for the request authentication</returns>
-        private string generateSignature()
+        public string generateSignature()
         {
             List<string> signatureList = new List<string>();
             string temp = null;

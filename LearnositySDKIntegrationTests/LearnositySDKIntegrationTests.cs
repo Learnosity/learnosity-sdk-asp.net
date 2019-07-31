@@ -90,7 +90,7 @@ namespace LearnositySDKIntegrationTests
 
             // Assert signature is still the same
             Assert.Equal(
-                init.generateSignaturePublic(),
+                init.generateSignature(),
                 "e1eae0b86148df69173cb3b824275ea73c9c93967f7d17d6957fcdd299c8a4fe"
             );
 

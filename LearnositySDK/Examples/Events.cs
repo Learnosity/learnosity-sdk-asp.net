@@ -14,7 +14,7 @@ namespace LearnositySDK.Examples
 
             JsonObject security = new JsonObject();
             security.set("consumer_key", "yis0TYCu7U9V4o7M");
-            security.set("user_id", "demo_student");
+            security.set("user_id", "$ANONYMIZED_USER_ID");
             security.set("domain", "localhost");
 
             string secret = "74c5fd430cf1242a527f6223aebd42d30464be22";
@@ -34,7 +34,7 @@ namespace LearnositySDK.Examples
 
             for (int i = 0; i <= 10; i++)
             {
-                string user_id = "userid_" + i;
+                string user_id = "$ANONYMIZED_USER_ID_" + i;
                 users.set(user_id);
             }
 

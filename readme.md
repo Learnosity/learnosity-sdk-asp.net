@@ -58,7 +58,7 @@ string service = "items";
 JsonObject security = new JsonObject();
 security.set("consumer_key", "yis0TYCu7U9V4o7M");
 security.set("domain", "localhost");
-security.set("user_id", "12345678");
+security.set("user_id", "$ANONYMIZED_USER_ID");
 
 string secret = "74c5fd430cf1242a527f6223aebd42d30464be22";
 
@@ -68,7 +68,7 @@ request.set("activity_id", "my-demo-activity");
 request.set("name", "Demo Activity");
 request.set("course_id", "demo_yis0TYCu7U9V4o7M");
 request.set("session_id", Uuid.generate());
-request.set("user_id", "demo_student");
+request.set("user_id", "$ANONYMIZED_USER_ID");
 
 // Instantiate Init class
 Init init = new Init(service, security, secret, request);
@@ -217,7 +217,7 @@ session_ids.set("AC023456-2C73-44DC-82DA28894FCBC3BF");
 JsonObject report = new JsonObject();
 report.set("id", "report-1");
 report.set("type", "sessions-summary");
-report.set("user_id", "brianmoser");
+report.set("user_id", "$ANONYMIZED_USER_ID");
 report.set("session_ids", session_ids);
 
 JsonObject reports = new JsonObject(true);

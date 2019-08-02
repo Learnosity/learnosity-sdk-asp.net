@@ -23,7 +23,7 @@ namespace LearnositySDK.Examples
             JsonObject report = new JsonObject();
             report.set("id", "report-1");
             report.set("type", "sessions-summary");
-            report.set("user_id", "brianmoser");
+            report.set("user_id", "$ANONYMIZED_USER_ID");
             report.set("session_ids", session_ids);
 
             JsonObject reports = new JsonObject(true);

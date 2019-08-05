@@ -80,7 +80,7 @@ namespace LearnositySDK.Request
         /// <summary>
         /// Determines if telemetry is enabled; default is true
         /// </summary>
-        private static bool __telemetry_enabled = true;
+        private static bool telemetryEnabled = true;
 
         /// <summary>
         /// Instantiate this class with all security and request data. It will be used to create a signature.
@@ -552,7 +552,7 @@ namespace LearnositySDK.Request
 
         public bool isTelemetryEnabled()
         {
-            return __telemetry_enabled;
+            return telemetryEnabled;
         }
 
         public JsonObject getSdkMeta()
@@ -587,7 +587,8 @@ namespace LearnositySDK.Request
                 return "darwin";
             }
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
                 return "win";
             }
 
@@ -625,12 +626,12 @@ namespace LearnositySDK.Request
         /// </summary>
         public static void disableTelemetry()
         {
-            __telemetry_enabled = false;
+            telemetryEnabled = false;
         }
 
         public static void enableTelemetry()
         {
-            __telemetry_enabled = true;
+            telemetryEnabled = true;
         }
     }
 }

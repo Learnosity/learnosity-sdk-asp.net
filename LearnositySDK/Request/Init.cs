@@ -535,18 +535,18 @@ namespace LearnositySDK.Request
         {
             if (this.isTelemetryEnabled())
             {
+                JsonObject meta;
                 if (this.requestPacket.getJsonObject("meta") != null)
                 {
-                    JsonObject meta = this.requestPacket.getJsonObject("meta");
-                    meta.set("sdk", this.getSdkMeta());
-                    this.requestPacket.set("meta", meta);
+                    meta = this.requestPacket.getJsonObject("meta");
                 }
                 else
                 {
-                    JsonObject meta = new JsonObject();
-                    meta.set("sdk", this.getSdkMeta());
-                    this.requestPacket.set("meta", meta);
+                    meta = new JsonObject();
                 }
+
+                meta.set("sdk", this.getSdkMeta());
+                this.requestPacket.set("meta", meta);
             }
         }
 

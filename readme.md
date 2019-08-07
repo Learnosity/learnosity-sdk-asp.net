@@ -243,3 +243,13 @@ You can find the latest version of the SDK as a self-contained ZIP file in the [
 ## Examples
 
 Each service has it's own example - you can find them in `Examples` folder of LearnositySDK project. To run them simply invoke static `Simple` method.
+
+## Tracking
+In version v0.9.0 we introduced code to track the following information by adding it to the request being signed:
+- SDK version
+- SDK language
+- SDK language version
+- Host platform (OS)
+- Platform version
+
+We use this data to enable better support and feature planning. All subsequent versions of the SDK shall include this usage tracking.

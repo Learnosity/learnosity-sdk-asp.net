@@ -17,7 +17,7 @@ namespace LearnositySDK.Examples
             JsonObject security = new JsonObject();
             security.set("consumer_key", Credentials.ConsumerKey);
             security.set("domain", Credentials.Domain);
-            security.set("user_id", "demo_student");
+            security.set("user_id", "$ANONYMIZED_USER_ID");
 
             string secret = Credentials.ConsumerSecret;
 

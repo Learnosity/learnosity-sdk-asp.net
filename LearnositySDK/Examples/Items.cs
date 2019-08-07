@@ -15,7 +15,7 @@ namespace LearnositySDK.Examples
             JsonObject security = new JsonObject();
             security.set("consumer_key", Credentials.ConsumerKey);
             security.set("domain", Credentials.Domain);
-            security.set("user_id", "12345678");
+            security.set("user_id", "$ANONYMIZED_USER_ID");
 
             string secret = Credentials.ConsumerSecret;
 
@@ -31,7 +31,7 @@ namespace LearnositySDK.Examples
             request.set("name", "Demo Activity");
             request.set("course_id", "demo_yis0TYCu7U9V4o7M");
             request.set("session_id", Uuid.generate());
-            request.set("user_id", "demo_student");
+            request.set("user_id", "$ANONYMIZED_USER_ID");
             request.set("config", config);
 
             // Instantiate Init class

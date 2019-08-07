@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using LearnositySDK.Utils;
 using System.Web;
+using System.Runtime.InteropServices;
 
 namespace LearnositySDK.Request
 {
@@ -76,6 +76,11 @@ namespace LearnositySDK.Request
         /// The algorithm used in the hashing function to create the signature.
         /// </summary>
         private string algorithm;
+
+        /// <summary>
+        /// Determines if telemetry is enabled; default is true
+        /// </summary>
+        private static bool telemetryEnabled = true;
 
         /// <summary>
         /// Instantiate this class with all security and request data. It will be used to create a signature.
@@ -153,6 +158,7 @@ namespace LearnositySDK.Request
             //try
             //{
                 this.validate(this.service, ref this.securityPacket, this.secret, this.requestPacket, this.action);
+                this.addTelemetryData();
                 this.requestString = this.generateRequestString();
                 this.setServiceOptions();
                 this.securityPacket.set("signature", this.generateSignature());
@@ -180,7 +186,7 @@ namespace LearnositySDK.Request
             {
                 throw new Exception("Invalid data, please check you request packet.");
             }
-            
+
             return request;
         }
 
@@ -191,7 +197,7 @@ namespace LearnositySDK.Request
         /// - the `action` value if passed
         /// </summary>
         /// <returns>A signature hash for the request authentication</returns>
-        private string generateSignature()
+        public string generateSignature()
         {
             List<string> signatureList = new List<string>();
             string temp = null;
@@ -256,7 +262,7 @@ namespace LearnositySDK.Request
                     {
                         return this.generateData(output);
                     }
-                    else if(this.service == "assess")
+                    else if (this.service == "assess")
                     {
                         output = this.generateAssess(output);
                     }
@@ -277,7 +283,7 @@ namespace LearnositySDK.Request
                     // do nothing
                     break;
             }
-            
+
             return output.toJson();
         }
 
@@ -291,7 +297,7 @@ namespace LearnositySDK.Request
             StringBuilder sb = new StringBuilder();
             JsonObject obj = null;
             string str = "";
-            
+
             obj = output.getJsonObject("security");
             if (!Tools.empty(obj))
             {
@@ -380,7 +386,7 @@ namespace LearnositySDK.Request
                 case "assess":
                     // fall-through
                 case "questions":
-                    
+
                     this.signRequestData = false;
 
                     if (this.service == "assess" && Tools.array_key_exists("questionsApiActivity", this.requestPacket))
@@ -456,18 +462,21 @@ namespace LearnositySDK.Request
                     this.signRequestData = false;
 
                     JsonObject requestPackageUsers = this.requestPacket.getJsonObject("users");
-                    if (requestPackageUsers != null) {
-                        string[] users =  requestPackageUsers.getValuesArray();
-                        if (users != null && users.Length > 0) {
+                    if (requestPackageUsers != null)
+                    {
+                        string[] users = requestPackageUsers.getValuesArray();
+                        if (users != null && users.Length > 0)
+                        {
                             hashedUsers = new JsonObject();
-                            for (int i = 0; i < users.Length; i++) {
+                            for (int i = 0; i < users.Length; i++)
+                            {
                                 string user_id = users[i];
                                 hashedUsers.set(user_id, Tools.hash(this.algorithm, user_id + this.secret));
                             }
                             this.requestPacket.set("users", hashedUsers);
                         }
                     }
-  
+
                     break;
                 default:
                     // do nothing
@@ -517,6 +526,112 @@ namespace LearnositySDK.Request
             {
                 throw new Exception("The `secret` argument must be a valid string");
             }
+        }
+
+        /// <summary>
+        /// Adds a meta field with SDK information in it to the requestPacket
+        /// </summary>
+        public void addTelemetryData()
+        {
+            if (this.isTelemetryEnabled())
+            {
+                JsonObject meta;
+                if (this.requestPacket.getJsonObject("meta") != null)
+                {
+                    meta = this.requestPacket.getJsonObject("meta");
+                }
+                else
+                {
+                    meta = new JsonObject();
+                }
+
+                meta.set("sdk", this.getSdkMeta());
+                this.requestPacket.set("meta", meta);
+            }
+        }
+
+        public bool isTelemetryEnabled()
+        {
+            return telemetryEnabled;
+        }
+
+        public JsonObject getSdkMeta()
+        {
+            JsonObject sdkMeta = new JsonObject();
+            sdkMeta.set("version", this.getSdkVersion());
+            sdkMeta.set("lang", "asp.net");
+            sdkMeta.set("lang_version", this.getLanguageVersion());
+            sdkMeta.set("platform", this.getPlatform());
+            sdkMeta.set("platform_version", this.getPlatformVersion());
+
+            return sdkMeta;
+        }
+
+        /// <summary>
+        /// Returns the version number of ASP.NET
+        /// </summary>
+        /// <returns></returns>
+        public string getLanguageVersion()
+        {
+            return Environment.Version.ToString();
+        }
+
+        /// <summary>
+        /// Returns the name of the platform the code is running on
+        /// </summary>
+        /// <returns></returns>
+        public string getPlatform()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return "darwin";
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return "win";
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return "linux";
+            }
+
+            return Environment.OSVersion.Platform.ToString();
+        }
+
+        /// <summary>
+        /// Returns the version number of the platform the code is running on
+        /// </summary>
+        /// <returns></returns>
+        public string getPlatformVersion()
+        {
+            var os = Environment.OSVersion;
+            return string.Concat(os.Version.Major, '.', os.Version.Minor);
+        }
+
+        /// <summary>
+        /// Extracts the version number of this SDK from the project meta data
+        /// </summary>
+        /// <returns>The version number</returns>
+        public string getSdkVersion()
+        {
+            return GetType().Assembly.GetName().Version.ToString();
+        }
+
+        /// <summary>
+        /// We use telemetry to enable better support and feature planning.
+        /// It will not interfere with any usage.
+        /// However, it is not advised to disable it.
+        /// </summary>
+        public static void disableTelemetry()
+        {
+            telemetryEnabled = false;
+        }
+
+        public static void enableTelemetry()
+        {
+            telemetryEnabled = true;
         }
     }
 }

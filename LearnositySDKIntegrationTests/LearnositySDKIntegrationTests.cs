@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using System.IO;
 using LearnositySDK.Utils;
 using LearnositySDK.Request;
 
@@ -68,6 +69,148 @@ namespace LearnositySDKIntegrationTests
             }
 
             return "https://data" + regionDomain + envDomain + ".learnosity.com/" + versionPath;
+        }
+
+        [Fact]
+        public void InitGeneratesExactSameSignature()
+        {
+            string action = "get";
+
+            JsonObject security = this.generateSecurityObject();
+
+            JsonObject request = new JsonObject();
+            request.set("limit", 100);
+
+            Init.disableTelemetry();
+            Init init = new Init("data", security, this.consumerSecret, request, action);
+
+            // Assert signature is still the same
+            Assert.Equal(
+                init.generateSignature(),
+                "e1eae0b86148df69173cb3b824275ea73c9c93967f7d17d6957fcdd299c8a4fe"
+            );
+
+            // Assert telemetry is turned off
+            Assert.False(init.isTelemetryEnabled());
+            Init.enableTelemetry();
+        }
+
+        [Fact]
+        public void InitGenerateBuildsNonEmptyRequest()
+        {
+            string action = "get";
+
+            JsonObject security = this.generateSecurityObject();
+
+            JsonObject request = new JsonObject();
+            request.set("page", 1);
+
+            Init init = new Init("data", security, this.consumerSecret, request, action);
+            string generatedString = init.generate();
+
+            // Assert generated string is not empty
+            Assert.NotEmpty(generatedString);
+
+            // Assert telemetry is turned on
+            Assert.True(init.isTelemetryEnabled());
+        }
+
+        [Fact]
+        public void EnabledTelemetryAddsSdkField()
+        {
+            string action = "get";
+            JsonObject security = this.generateSecurityObject();
+
+            JsonObject request = new JsonObject();
+            request.set("page", 1);
+
+            Init init = new Init("data", security, this.consumerSecret, request, action);
+            string generatedString = init.generate();
+
+            Assert.Contains("meta", generatedString);
+            Assert.Contains("sdk", generatedString);
+        }
+
+        [Fact]
+        public void EnabledTelemetryPreservesOtherMetaProps()
+        {
+            string action = "get";
+            JsonObject security = this.generateSecurityObject();
+
+            JsonObject metaField = new JsonObject();
+            metaField.set("test_key_string", "test-string");
+            metaField.set("test_key_integer", 12345);
+
+            JsonObject request = new JsonObject();
+            request.set("page", 1);
+            request.set("meta", metaField);
+
+            Init init = new Init("data", security, this.consumerSecret, request, action);
+            string generatedString = init.generate();
+
+            Assert.Contains("meta", generatedString);
+            Assert.Contains("sdk", generatedString);
+            Assert.Contains("test_key_string", generatedString);
+            Assert.Contains("test_key_integer", generatedString);
+        }
+
+        [Fact]
+        public void DisabledTelemetryPreservesEmptyProps()
+        {
+            string action = "get";
+            JsonObject security = this.generateSecurityObject();
+
+            Init.disableTelemetry();
+
+            JsonObject request = new JsonObject();
+            request.set("page", 1);
+
+            Init init = new Init("data", security, this.consumerSecret, request, action);
+            string generatedString = init.generate();
+
+            Assert.DoesNotContain("meta", generatedString);
+            Assert.DoesNotContain("sdk", generatedString);
+
+            Init.enableTelemetry();
+        }
+
+        [Fact]
+        public void DisabledTelemetryPreservesFilledProps()
+        {
+            string action = "get";
+            JsonObject security = this.generateSecurityObject();
+
+            Init.disableTelemetry();
+
+            JsonObject metaField = new JsonObject();
+            metaField.set("test_key_string", "test-string");
+            metaField.set("test_key_integer", 12345);
+
+            JsonObject request = new JsonObject();
+            request.set("page", 1);
+            request.set("meta", metaField);
+
+            Init init = new Init("data", security, this.consumerSecret, request, action);
+            string generatedString = init.generate();
+
+            Assert.Contains("meta", generatedString);
+            Assert.DoesNotContain("sdk", generatedString);
+            Assert.Contains("test_key_string", generatedString);
+            Assert.Contains("test_key_integer", generatedString);
+
+            Init.enableTelemetry();
+        }
+
+        private JsonObject generateSecurityObject()
+        {
+            string timestamp = "20140626-0528";
+
+            JsonObject security = new JsonObject();
+            security.set("consumer_key", this.consumerKey);
+            security.set("domain", this.domain);
+            security.set("timestamp", timestamp);
+
+            return security;
         }
     }
 }

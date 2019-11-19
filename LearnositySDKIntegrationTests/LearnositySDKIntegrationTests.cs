@@ -37,10 +37,7 @@ namespace LearnositySDKIntegrationTests
             JsonResponse = JsonObjectFactory.fromString(r.getBody());
 
             // Assert
-            Assert.Equal(
-                JsonResponse.getJsonObject("meta").getBool("status"),
-                true
-            );
+            Assert.True(JsonResponse.getJsonObject("meta").getBool("status"));
         }
 
         private static string BuildDataAPIBaseUrl(string env, string region, string version)
@@ -86,8 +83,8 @@ namespace LearnositySDKIntegrationTests
 
             // Assert signature is still the same
             Assert.Equal(
-                init.generateSignature(),
-                "e1eae0b86148df69173cb3b824275ea73c9c93967f7d17d6957fcdd299c8a4fe"
+                "e1eae0b86148df69173cb3b824275ea73c9c93967f7d17d6957fcdd299c8a4fe",
+                init.generateSignature()
             );
 
             // Assert telemetry is turned off

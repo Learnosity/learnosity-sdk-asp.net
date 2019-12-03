@@ -1,0 +1,15 @@
+version: "2"         # required to adjust maintainability checks
+
+checks:
+  similar-code:
+    config:
+      # Number based on looking at the reported issues and guessing
+      threshold: 150
+  identical-code:
+    config:
+      # Number based on looking at the reported issues and guessing
+      threshold: 100
+  method-complexity:
+    config:
+      # Set it to the same value as Sonar
+      threshold: 15

@@ -15,8 +15,7 @@
     <Version>0.9.0</Version>
     <PackageLicenseUrl>https://github.com/Learnosity/learnosity-sdk-asp.net/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Learnosity/learnosity-sdk-asp.net</PackageProjectUrl>
-    <PackageIconUrl>https://www.learnosity.com/static/img/logos/learnositylogoforfacebook.jpg</PackageIconUrl>
-    <RepositoryUrl>https://www.learnosity.com/static/img/logos/learnositylogoforfacebook.jpg</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Learnosity/learnosity-sdk-asp.net</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackOnBuild>true</PackOnBuild>
   </PropertyGroup>

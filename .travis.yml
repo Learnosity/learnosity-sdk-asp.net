@@ -4,4 +4,5 @@ dotnet: 2.1.400
 script:
 - dotnet restore
 - dotnet build
+- dotnet test LearnositySDKUnitTests/LearnositySDKUnitTests.csproj
 - dotnet test LearnositySDKIntegrationTests/LearnositySDKIntegrationTests.csproj

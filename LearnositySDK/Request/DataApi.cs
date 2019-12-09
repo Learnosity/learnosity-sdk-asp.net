@@ -141,10 +141,7 @@ namespace LearnositySDK.Request
                             return response;
                         }
                     }
-                    else
-                    {
-                        response = Tools.array_merge(response, data.getJsonObject("data"));
-                    }
+                    response = Tools.array_merge(response, data.getJsonObject("data"));
                 }
                 else {
                     throw new Exception(Json.encode(data));

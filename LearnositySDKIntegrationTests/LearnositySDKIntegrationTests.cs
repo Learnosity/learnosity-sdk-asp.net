@@ -40,6 +40,37 @@ namespace LearnositySDKIntegrationTests
             Assert.True(JsonResponse.getJsonObject("meta").getBool("status"));
         }
 
+        [Fact]
+        public void DataAPIGetItemsRecursiveWithCallback()
+        {
+            // Arrange
+            JsonObject JsonResponse;
+            int requestIndex = 1;
+            int maxRequests = 3;
+            int requestSize = 10;
+            string endpoint = this.baseDataAPIUrl + "/itembank/items";
+
+            string action = "get";
+
+            JsonObject security = new JsonObject();
+            security.set("consumer_key", this.consumerKey);
+            security.set("domain", this.domain);
+
+            JsonObject request = new JsonObject();
+            request.set("limit", requestSize);
+
+            // Act
+            DataApi da = new DataApi();
+            JsonResponse = da.requestRecursive(endpoint, security, this.consumerSecret, request, action, new ProcessData((string data) => {
+                JsonObject jo = JsonObjectFactory.fromString(data);
+                bool shouldMergeResultsAndContinue = jo != null && requestIndex++ <= maxRequests;
+                return shouldMergeResultsAndContinue;
+            }));
+
+            // Assert
+            Assert.Equal(maxRequests * requestSize, JsonResponse.getKeys().Length);
+        }
+
         private static string BuildDataAPIBaseUrl(string env, string region, string version)
         {
             string regionDomain = "";

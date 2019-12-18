@@ -154,19 +154,16 @@ namespace LearnositySDK.Request
             this.validServices = new string[7] { "assess", "author", "data", "events", "items", "questions", "reports" };
             this.algorithm = "sha256";
 
-            // We don't catch this Exception, as we can't `die` as in PHP
-            //try
-            //{
-                this.validate(this.service, ref this.securityPacket, this.secret, this.requestPacket, this.action);
-                this.addTelemetryData();
-                this.requestString = this.generateRequestString();
-                this.setServiceOptions();
-                this.securityPacket.set("signature", this.generateSignature());
-            /*}
-            catch (Exception e)
+            if (this.requestPacket == null)
             {
-                
-            }*/
+                this.requestPacket = new JsonObject();
+            }
+
+            this.validate(this.service, ref this.securityPacket, this.secret, this.requestPacket, this.action);
+            this.addTelemetryData();
+            this.requestString = this.generateRequestString();
+            this.setServiceOptions();
+            this.securityPacket.set("signature", this.generateSignature());
         }
 
         /// <summary>
@@ -536,6 +533,7 @@ namespace LearnositySDK.Request
             if (this.isTelemetryEnabled())
             {
                 JsonObject meta;
+
                 if (this.requestPacket.getJsonObject("meta") != null)
                 {
                     meta = this.requestPacket.getJsonObject("meta");

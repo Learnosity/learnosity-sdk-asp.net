@@ -81,5 +81,29 @@ namespace LearnositySDKUnitTests
                 init.generate()
             );
         }
+
+        [TestMethod]
+        public void testNullRequestPacketWithTelemetry()
+        {
+            Init.enableTelemetry();
+
+            Init init = new Init("data", TestRequest.getBaseSecurity(), TestRequest.getSecret(), null, "get");
+            string generatedString = init.generate();
+
+            Assert.IsTrue(generatedString.Contains("meta"));
+            Assert.IsTrue(generatedString.Contains("sdk"));
+        }
+
+        [TestMethod]
+        public void testEmptyStringRequestPacketWithTelemetry()
+        {
+            Init.enableTelemetry();
+
+            Init init = new Init("data", TestRequest.getBaseSecurity(), TestRequest.getSecret(), "", "get");
+            string generatedString = init.generate();
+
+            Assert.IsTrue(generatedString.Contains("meta"));
+            Assert.IsTrue(generatedString.Contains("sdk"));
+        }
     }
 }

@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - More unit tests that cover the `Init` class.
 
+### Fixed
+- Fixed a bug where `null` and empty string request packets would cause an exception to be thrown when calling the `Init` constructor.
+
 ## [v0.9.0] - 2019-08-12
 ### Added
 - This ChangeLog!

@@ -26,7 +26,15 @@ namespace LearnositySDKUnitTests.TestData
         private JsonObject request;
         private string action;
 
+        public static string getSecret()
+        {
+            return Secret;
+        }
 
+        public static string getBaseSecurity()
+        {
+            return BaseSecurity;
+        }
 
         public static TestRequest getTestRequestFor(string service, string action = null)
         {

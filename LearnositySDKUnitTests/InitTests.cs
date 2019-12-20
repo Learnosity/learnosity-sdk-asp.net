@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LearnositySDK.Request;
@@ -80,6 +79,30 @@ namespace LearnositySDKUnitTests
                 "security=%7b%22consumer_key%22%3a%22yis0TYCu7U9V4o7M%22%2c%22domain%22%3a%22localhost%22%2c%22timestamp%22%3a%2220140626-0528%22%2c%22signature%22%3a%22" + expectedSignature + "%22%7d&request=%7b%22limit%22%3a100%7d&action=post",
                 init.generate()
             );
+        }
+
+        [TestMethod]
+        public void testNullRequestPacketWithTelemetry()
+        {
+            Init.enableTelemetry();
+
+            Init init = new Init("data", TestRequest.getBaseSecurity(), TestRequest.getSecret(), null, "get");
+            string generatedString = init.generate();
+
+            Assert.IsTrue(generatedString.Contains("meta"));
+            Assert.IsTrue(generatedString.Contains("sdk"));
+        }
+
+        [TestMethod]
+        public void testEmptyStringRequestPacketWithTelemetry()
+        {
+            Init.enableTelemetry();
+
+            Init init = new Init("data", TestRequest.getBaseSecurity(), TestRequest.getSecret(), "", "get");
+            string generatedString = init.generate();
+
+            Assert.IsTrue(generatedString.Contains("meta"));
+            Assert.IsTrue(generatedString.Contains("sdk"));
         }
     }
 }

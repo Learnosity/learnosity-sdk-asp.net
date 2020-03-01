@@ -6,3 +6,7 @@ script:
 - dotnet build
 - dotnet test LearnositySDKUnitTests/LearnositySDKUnitTests.csproj
 - dotnet test LearnositySDKIntegrationTests/LearnositySDKIntegrationTests.csproj
+notifications:
+  slack:
+    rooms:
+      secure: OFrn7jLLe/14eIZWYsoRn+66v2k8qN9KXKP4of8yiL5QjDmKhDvUPCB6PHi0FOLQnzjPqXaASRYJkor0EADsUMbsaEVLJoQpZs4ta3iwC5PhTlyVStiXHaSWqIkgnX7mg1LDoC/wcpQLN9fm+kmDxIYRMBQ3EPKye9tR3Ro5Hsk=

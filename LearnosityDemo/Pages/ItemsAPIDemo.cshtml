@@ -1,0 +1,14 @@
+﻿@page
+@model LearnosityDemo.Pages.ItemsAPIDemoModel
+@{
+    ViewData["Title"] = "Learnosity Example: Standalone Assessment";
+    ViewData["TopJS"] = "<script src=\"https://items.learnosity.com/?v2021.2.LTS\"></script>";
+}
+
+<!-- Items API will render the assessment app into this div. -->
+<div id="learnosity_assess"></div>
+
+<!-- Initiate Items API assessment rendering, using the JSON blob of signed params. -->
+<script>var itemsApp = LearnosityItems.init(
+                @Html.Raw(ViewData["InitJSON"])
+            );</script>

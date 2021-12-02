@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnositySDKUnitTests", "L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnositySDKIntegrationTests", "LearnositySDKIntegrationTests\LearnositySDKIntegrationTests.csproj", "{EC7DF4B1-1A89-40CA-99B1-E059D54EA373}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnosityDemo", "LearnosityDemo\LearnosityDemo.csproj", "{48234B2A-1BD6-477F-9DCA-F7F1A1FD15B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{EC7DF4B1-1A89-40CA-99B1-E059D54EA373}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC7DF4B1-1A89-40CA-99B1-E059D54EA373}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC7DF4B1-1A89-40CA-99B1-E059D54EA373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48234B2A-1BD6-477F-9DCA-F7F1A1FD15B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48234B2A-1BD6-477F-9DCA-F7F1A1FD15B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48234B2A-1BD6-477F-9DCA-F7F1A1FD15B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48234B2A-1BD6-477F-9DCA-F7F1A1FD15B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -193,3 +193,5 @@ FakesAssemblies/
 # Un-needed build files from the Quick Start Guide / Learnosity Demo
 /LearnosityDemo/bin
 /LearnosityDemo/obj
+/LearnosityDemo/.DS_Store
+

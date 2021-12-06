@@ -23,7 +23,7 @@ namespace LearnosityDemo.Pages
             security.set("user_id", Uuid.generate());
             string secret = LearnositySDK.Credentials.ConsumerSecret;
 
-            JsonObject config = new JsonObject();
+            //JsonObject config = new JsonObject();
             JsonObject request = new JsonObject();
             request.set("user_id", Uuid.generate());
             request.set("activity_template_id", "quickstart_examples_activity_template_001");
@@ -32,7 +32,7 @@ namespace LearnosityDemo.Pages
             request.set("rendering_type", "assess");
             request.set("type", "submit_practice");
             request.set("name", "Items API Quickstart");
-            request.set("config", config);
+            //request.set("config", config);
 
             // Instantiate Init class
             Init init = new Init(service, security, secret, request);

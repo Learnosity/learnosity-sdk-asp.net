@@ -194,4 +194,5 @@ FakesAssemblies/
 /LearnosityDemo/bin
 /LearnosityDemo/obj
 /LearnosityDemo/.DS_Store
+*.DS_Store
 

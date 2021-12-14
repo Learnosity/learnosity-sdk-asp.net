@@ -27,14 +27,6 @@ This project is a class library built in compatibility with .NET Standard 2.0.
 
 This project uses only one external dependency: [Newtonsoft.Json](https://www.newtonsoft.com/json)
 
-## Installation
-
-To install the Learnosity SDK .NET NuGet package, run the following command in the Package Manager Console:
-
-```
-PM> Install-Package LearnositySDK
-```
-
 ## Usage
 
 ### Init class
@@ -75,7 +67,7 @@ Init init = new Init(service, security, secret, request);
 string JavaScriptObject = init.generate();
 ```
 
-On JavaScript side:
+On the JavaScript side:
 
 ```
 // Pass the object to the initialisation of any Learnosity API
@@ -239,7 +231,7 @@ You can find the latest version of the SDK as a self-contained ZIP file in the [
 
 ## Examples
 
-Each service has it's own example - you can find them in `Examples` folder of LearnositySDK project. To run them simply invoke static `Simple` method.
+Each service has its own example - you can find them in the `Examples` folder of the LearnositySDK project. To run them simply invoke static `Simple` method. There is also the quick-start guide and tutorial, covered in [README.md](README.md).
 
 ## Further reading
 Thanks for reading to the end! Find more information about developing an app with Learnosity on our documentation sites: 

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using LearnositySDK.Request;
 using LearnositySDK.Utils;
-// static LearnositySDK.Credentials;
 
 namespace LearnosityDemo.Pages
 {

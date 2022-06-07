@@ -195,16 +195,20 @@ namespace LearnositySDK.Request
             }
             catch (WebException e)
             {
-                using (this.result = e.Response)
-                {
-                    using (StreamReader sr = new StreamReader(this.result.GetResponseStream()))
-                    {
-                        this.responseBody = sr.ReadToEnd();
-                    }
-                }
                 this.status = e.Status.ToString();
                 this.errorCode = this.status;
                 this.errorMessage = e.Message;
+
+                if (e.Status == WebExceptionStatus.Success)
+                {
+                    using (this.result = e.Response)
+                    {
+                        using (StreamReader sr = new StreamReader(this.result.GetResponseStream()))
+                        {
+                            this.responseBody = sr.ReadToEnd();
+                        }
+                    }
+                }
             }
 
             this.process();

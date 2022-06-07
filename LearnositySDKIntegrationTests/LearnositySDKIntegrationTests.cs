@@ -198,6 +198,41 @@ namespace LearnositySDKIntegrationTests
             Init.enableTelemetry();
         }
 
+        [Fact]
+        public void RequestFailureReturnsStatusAndErrorCode()
+        {
+            // Arrange
+            string endpoint = "http://thisisafakeurl";
+
+            string action = "get";
+
+            JsonObject security = new JsonObject();
+            security.set("consumer_key", this.consumerKey);
+            security.set("domain", this.domain);
+
+            JsonObject request = new JsonObject();
+            request.set("limit", 50);
+
+            // Act
+            Init init = new Init("data", security, this.consumerSecret, request, action);
+            string parameters = init.generate();
+
+            Remote remote = new Remote();
+            JsonObject options = new JsonObject();
+            options.set("timeout", 10);
+            options.set("readWriteTimeout", 10);
+            options.set("headers", new JsonObject());
+            options.set("encoding", "utf-8");
+
+            remote.post(endpoint, parameters, options);
+
+            // Assert
+            string statusCode = remote.getStatusCode();
+            var errorCodes = remote.getError();
+            Assert.True(statusCode == "NameResolutionFailure", $"Status Code was not NameResolutionFailure. StatusCode: {statusCode}");
+            Assert.Contains(errorCodes, x => x.Key == "code" && x.Value == "NameResolutionFailure");
+        }
+
         private JsonObject generateSecurityObject()
         {
             string timestamp = "20140626-0528";

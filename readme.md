@@ -5,7 +5,7 @@
 An official Learnosity open-source project.</p>
 
 [![Latest Stable Version](https://badge.fury.io/gh/Learnosity%2Flearnosity-sdk-asp.net.svg)](https://github.com/Learnosity/learnosity-sdk-asp.net/releases)
-[![Build Status](https://travis-ci.org/Learnosity/learnosity-sdk-asp.net.svg?branch=master)](https://app.travis-ci.com/github/Learnosity/learnosity-sdk-asp.net)
+[![Build Status](https://app.travis-ci.com/Learnosity/learnosity-sdk-asp.net.svg?branch=master)](https://app.travis-ci.com/Learnosity/learnosity-sdk-asp.net)
 [![License](docs/images/apache-license.svg)](LICENSE.md)
 [![Downloads](docs/images/downloads.svg)](https://github.com/Learnosity/learnosity-sdk-asp.net/releases)
 ---

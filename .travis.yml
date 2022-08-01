@@ -1,6 +1,11 @@
 language: csharp
 mono: none
 dotnet: 3.1
+env:
+  matrix:
+    - REGION=va
+    - REGION=ca
+    
 before_install:
   # Login to docker hub
   - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin

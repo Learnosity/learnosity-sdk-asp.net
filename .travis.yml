@@ -1,6 +1,7 @@
 language: csharp
 mono: none
 dotnet: 3.1
+
 env:
   matrix:
     - REGION=va
@@ -9,10 +10,12 @@ env:
 before_install:
   # Login to docker hub
   - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
 script:
 - dotnet build
 - dotnet test LearnositySDKUnitTests/LearnositySDKUnitTests.csproj
 - dotnet test LearnositySDKIntegrationTests/LearnositySDKIntegrationTests.csproj
+
 notifications:
   slack:
     rooms:

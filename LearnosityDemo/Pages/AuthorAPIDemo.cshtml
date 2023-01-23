@@ -1,0 +1,23 @@
+﻿@page
+@model LearnosityDemo.Pages.AuthorAPIDemoModel
+@{
+        ViewData["Title"] = "Learnosity Example: Standalone Assessment";
+        ViewData["TopJS"] = "<script src=\"https://authorapi.learnosity.com?latest-lts\"></script>";
+
+ }
+<!-- Author API will render the author app into this div. -->
+<div id="learnosity-author"></div>
+ <!-- Initiate Author API rendering, using the JSON blob of signed params. -->  
+<script>
+    var callbacks = {
+        readyListener: function () {
+            console.log("Author API has successfully initialized.");
+        },
+        errorListener: function (err) {
+            console.log(err);
+        }
+    }; 
+    var authorApp = LearnosityAuthor.init(
+                @Html.Raw(ViewData["InitJSON"]), callbacks
+);
+</script>

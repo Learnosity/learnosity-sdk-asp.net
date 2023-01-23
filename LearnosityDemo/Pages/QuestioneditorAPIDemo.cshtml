@@ -1,0 +1,26 @@
+﻿@page
+@model LearnosityDemo.Pages.QuestioneditorAPIDemoModel
+@{
+    ViewData["Title"] = "Learnosity Example: Standalone Assessment";
+    ViewData["TopJS"] = "<script src=\"https://questioneditor.learnosity.com/?latest-lts\"></script>";
+
+}
+<!-- Question Editor API will render into this div. -->
+<div class="learnosity-question-editor"></div>
+<!-- Initiate Question Editor API rendering, using the JSON blob of signed params. -->
+<script>
+    var callbacks = {
+        readyListener: init,
+        errorListener: errors
+    };
+
+    function init() {
+        console.log('API has successfully initialized.');
+    }
+
+    function errors(err) {
+        console.log(err);
+    }
+
+    var questionEditorApp = LearnosityQuestionEditor.init(@Html.Raw(ViewData["InitJSON"]), callbacks);
+</script>

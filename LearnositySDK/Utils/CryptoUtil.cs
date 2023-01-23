@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace LearnositySDK.Utils
@@ -18,6 +20,21 @@ namespace LearnositySDK.Utils
             byte[] hashBytes = sha256.ComputeHash(bytes);
 
             return hex(hashBytes);
+        }
+
+        /// <summary>
+        /// Compute hmac256 hash for string encoded as UTF8
+        /// </summary>
+        /// <param name="prehash">String to be hashed</param>
+        ///<param name="secret">String used for encryption</param>
+        /// <returns>64-character hex string</returns>
+        public static string hmacsha256(string prehash, string secret)
+        {
+            byte[] keyByte = Encoding.UTF8.GetBytes(secret);
+            byte[] messageBytes = Encoding.UTF8.GetBytes(prehash);
+            var hmacsha256 = new HMACSHA256(keyByte);
+            byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+            return hex(hashmessage); 
         }
 
         /// <summary>

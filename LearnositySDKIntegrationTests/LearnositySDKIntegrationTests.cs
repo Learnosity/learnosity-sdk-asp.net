@@ -83,7 +83,7 @@ namespace LearnositySDKIntegrationTests
 
             // Assert signature is still the same
             Assert.Equal(
-                "e1eae0b86148df69173cb3b824275ea73c9c93967f7d17d6957fcdd299c8a4fe",
+                "$02$e19c8a62fba81ef6baf2731e2ab0512feaf573ca5ca5929c2ee9a77303d2e197",
                 init.generateSignature()
             );
 

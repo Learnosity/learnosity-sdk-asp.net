@@ -1,0 +1,26 @@
+﻿@page
+@model LearnosityDemo.Pages.AssessAPIDemoModel
+@{
+        ViewData["Title"] = "Learnosity Example: Standalone Assessment";
+        ViewData["TopJS"] = "<script src=\"https://assess.learnosity.com?latest\"></script>";
+
+ }
+<!-- Assess API will render the assess app into this id. -->
+<div id="learnosity_assess"></div>
+ <!-- Initiate Assess API rendering, using the JSON blob of signed params. -->  
+<script>
+    const callbacks = {
+    errorListener: function(e) {
+        // Adds a listener to all error codes.
+        console.log("Error Code ", e.code);
+        console.log("Error Message ", e.msg);
+        console.log("Error Detail ", e.detail);
+    },
+
+    readyListener: function() {
+        console.log("Learnosity Questions API is ready");
+    }
+};
+
+    const assessApp = LearnosityAssess.init(@Html.Raw(ViewData["InitJSON"]), "learnosity_assess", callbacks);
+</script>

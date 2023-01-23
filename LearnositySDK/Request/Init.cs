@@ -4,6 +4,7 @@ using System.Text;
 using LearnositySDK.Utils;
 using System.Web;
 using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace LearnositySDK.Request
 {
@@ -51,6 +52,11 @@ namespace LearnositySDK.Request
         /// If `requestPacket` is used, `requestString` will be the string (JSON) representation of that. It's used to create the signature and returned as part of the service initialisation data.
         /// </summary>
         private string requestString;
+
+        /// <summary>
+        /// the `prehashString` string is concatination of signaturelist (Array) , required for hashing.
+        /// </summary>
+        private string prehashString;
 
         /// <summary>
         /// An optional value used to define what type of request is being made. This is only required for certain requests made to the Data API (http://docs.learnosity.com/dataapi/)
@@ -152,7 +158,7 @@ namespace LearnositySDK.Request
             this.signRequestData = true;
             this.validSecurityKeys = new string[5] { "consumer_key", "domain", "timestamp", "expires", "user_id" };
             this.validServices = new string[7] { "assess", "author", "data", "events", "items", "questions", "reports" };
-            this.algorithm = "sha256";
+            this.algorithm = "hmac-sha256";
 
             if (this.requestPacket == null)
             {
@@ -208,8 +214,6 @@ namespace LearnositySDK.Request
                 }
             }
 
-            signatureList.Add(this.secret);
-
             if (this.signRequestData && !Tools.empty(this.requestString))
             {
                 signatureList.Add(this.requestString);
@@ -220,7 +224,9 @@ namespace LearnositySDK.Request
                 signatureList.Add(this.action);
             }
 
-            return this.hashValue(signatureList.ToArray());
+            this.prehashString  = Tools.implode("_", signatureList.ToArray());
+  
+            return this.hashValue(this.prehashString, this.secret);
         }
 
         /// <summary>
@@ -362,15 +368,15 @@ namespace LearnositySDK.Request
         }
 
         /// <summary>
-        /// Hash an array value
+        /// Returns a hash value
         /// </summary>
-        /// <param name="value">An array to hash</param>
+        /// <param name="prehash">String to be hashed</param>
+        /// <param name="secret">String used for encryption</param>
         /// <returns>The hashed string</returns>
-        private string hashValue(string[] value)
+        private string hashValue(string prehash, string secret )
         {
-            string implode = Tools.implode("_", value);
-            string hash = Tools.hash(this.algorithm, implode);
-            return hash;
+            string hash = Tools.hash(this.algorithm, prehash, secret);
+            return "$02$" + hash;
         }
 
         /// <summary>
@@ -406,23 +412,13 @@ namespace LearnositySDK.Request
 
                         JsonObject questionsApiActivity = new JsonObject();
 
-                        List<string> signatureList = new List<string>();
-
-                        signatureList.Add(this.securityPacket.getString("consumer_key"));
-                        signatureList.Add(domain);
-                        signatureList.Add(this.securityPacket.getString("timestamp"));
-
                         if (Tools.array_key_exists("expires", this.securityPacket))
                         {
-                            signatureList.Add(this.securityPacket.getString("expires"));
                             questionsApiActivity.set("expires", this.securityPacket.getString("expires"));
                             questionsApi.remove("expires");
                         }
 
-                        signatureList.Add(this.securityPacket.getString("user_id"));
-                        signatureList.Add(this.secret);
-
-                        string signature = this.hashValue(signatureList.ToArray());
+                        string signature = generateSignature();
 
                         questionsApiActivity.set("consumer_key", this.securityPacket.getString("consumer_key"));
                         questionsApiActivity.set("timestamp", this.securityPacket.getString("timestamp"));
@@ -468,7 +464,7 @@ namespace LearnositySDK.Request
                             for (int i = 0; i < users.Length; i++)
                             {
                                 string user_id = users[i];
-                                hashedUsers.set(user_id, Tools.hash(this.algorithm, user_id + this.secret));
+                                hashedUsers.set(user_id, Tools.hash(this.algorithm, this.prehashString, user_id + this.secret));
                             }
                             this.requestPacket.set("users", hashedUsers);
                         }

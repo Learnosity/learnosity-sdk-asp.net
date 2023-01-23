@@ -1,0 +1,27 @@
+﻿@page
+@model LearnosityDemo.Pages.QuestionsAPIDemoModel
+@{
+    ViewData["Title"] = "Learnosity Example: Standalone Assessment";
+    ViewData["TopJS"] = "<script src=\"https://questions.learnosity.com/?verison=developer\"></script>";
+}
+
+<!-- Questions API will render the Question app into this span. -->
+<span class="learnosity-response question-60001"></span>
+<!-- Initiate Questions API, using the JSON blob of signed params. -->
+<script>
+    var callbacks = {
+        readyListener: init,
+        errorListener: errors
+    };
+
+    function init() {
+        console.log(questionsApp);
+    }
+
+    function errors(err) {
+        console.log(err);
+    }
+    var questionsApp = LearnosityApp.init(
+                @Html.Raw(ViewData["InitJSON"])
+);
+</script>

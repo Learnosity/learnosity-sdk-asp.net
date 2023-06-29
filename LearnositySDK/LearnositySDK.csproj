@@ -5,14 +5,14 @@
     <AssemblyName>LearnositySDK</AssemblyName>
     <RootNamespace>LearnositySDK</RootNamespace>
     <PackageId>LearnositySDK</PackageId>
-    <PackageVersion>0.9.1</PackageVersion>
+    <PackageVersion>0.9.2</PackageVersion>
     <Authors>Learnosity</Authors>
     <Description>Learnosity SDK for ASP.NET / C#</Description>
     <PackageReleaseNotes>Telemetry data (basic information about the execution environment) is now added to the request objects being signed which is later read and logged internally by our APIs when the request is received. This allows us to better support our various SDKs and does not send any additional network requests. More information can be found in README.md.
 </PackageReleaseNotes>
-    <Copyright>Copyright Learnosity 2017 (c)</Copyright>
+    <Copyright>Copyright Learnosity 2023 (c)</Copyright>
     <PackageTags>learnosity sdk asp .net</PackageTags>
-    <Version>0.9.1</Version>
+    <Version>0.9.2</Version>
     <PackageLicenseUrl>https://github.com/Learnosity/learnosity-sdk-asp.net/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Learnosity/learnosity-sdk-asp.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Learnosity/learnosity-sdk-asp.net</RepositoryUrl>

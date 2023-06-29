@@ -5,6 +5,7 @@ using System.Text;
 using System.Globalization;
 using System.Security.Cryptography;
 
+
 namespace LearnositySDK.Utils
 {
     public class Tools
@@ -139,21 +140,36 @@ namespace LearnositySDK.Utils
         }
 
         /// <summary>
+        /// Returns HMAC256 hash
+        /// </summary>
+        /// <param name="prehash">String to be hashed</param>
+        ///<param name="secret">String used for encryption</param>
+        /// <returns></returns>
+        public static string hmacsha256(string prehash, string secret)
+        {
+            return CryptoUtil.hmacsha256(prehash, secret);
+        }
+
+        /// <summary>
         /// Returns hash
         /// </summary>
-        /// <param name="algorithm">Possible algorithms: md5, sha256 (default), sha1</param>
-        /// <param name="message"></param>
+        /// <param name="algorithm">Possible algorithms: md5, sha256 (default), sha1, hmac256</param>
+        /// <param name="prehash">String to be hashed</param>
+        /// <param name="secret">String used for encryption</param>
         /// <returns></returns>
-        public static string hash(string algorithm, string message)
+        public static string hash(string algorithm, string prehash, string secret)
         {
             string str = "";
 
             switch (algorithm)
             {
+                case "hmac-sha256":
+                    str = Tools.hmacsha256(prehash, secret);
+                    break;
                 case "sha256":
                     // fall through
                 default:
-                    str = Tools.sha256(message);
+                    str = Tools.sha256(secret);
                     break;
             }
 

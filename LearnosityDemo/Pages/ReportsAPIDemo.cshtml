@@ -1,0 +1,23 @@
+﻿@page
+@model LearnosityDemo.Pages.ReportsAPIDemoModel
+@{
+        ViewData["Title"] = "Learnosity Example: Standalone Assessment";
+        ViewData["TopJS"] = "<script src=\"https://reports.learnosity.com/?latest-lts\"></script>";
+
+ }
+<!-- Reports API will render the author app into this span. -->
+<span class="learnosity-report" id="session-detail"></span>
+ <!-- Initiate Reports API rendering, using the JSON blob of signed params. -->  
+<script>
+    var callbacks = {
+        readyListener: function () {
+            console.log("Learnosity Reports has successfully initialized.");
+        },
+        errorListener: function (err) {
+            console.log(err);
+        }
+    }; 
+    var reportsApp = LearnosityReports.init(
+                @Html.Raw(ViewData["InitJSON"]), callbacks
+);
+</script>

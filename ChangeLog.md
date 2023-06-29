@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.9.2] - 2023-06-23
+### Security
+- Upgraded signature to match the security standard.
 
 ## [v0.9.1] - 2019-12-23
 ### Added

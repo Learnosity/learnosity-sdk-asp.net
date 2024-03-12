@@ -7,6 +7,7 @@ using System.Web;
 using System.IO;
 using LearnositySDK.Utils;
 using System.Diagnostics;
+using System.Threading;
 
 namespace LearnositySDK.Request
 {
@@ -178,10 +179,11 @@ namespace LearnositySDK.Request
                 }
             }
 
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            
             try
             {
-                Stopwatch timer = new Stopwatch();
-                timer.Start();
                 using (this.result = this.hr.GetResponse())
                 {
                     using (StreamReader sr = new StreamReader(this.result.GetResponseStream()))
@@ -190,22 +192,26 @@ namespace LearnositySDK.Request
                     }
                 }
                 this.status = "200";
-                timer.Stop();
-                this.time = timer.Elapsed.Seconds;
             }
             catch (WebException e)
             {
                 using (this.result = e.Response)
                 {
-                    using (StreamReader sr = new StreamReader(this.result.GetResponseStream()))
+                    if (this.result != null)
                     {
-                        this.responseBody = sr.ReadToEnd();
+                        using (StreamReader sr = new StreamReader(this.result.GetResponseStream()))
+                        {
+                            this.responseBody = sr.ReadToEnd();
+                        }
                     }
                 }
                 this.status = e.Status.ToString();
                 this.errorCode = this.status;
                 this.errorMessage = e.Message;
             }
+
+            timer.Stop();
+            this.time = timer.Elapsed.Seconds;
 
             this.process();
             return this;

@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- Handle Null Reference Exception raised under load, [see] (https://github.com/Learnosity/learnosity-sdk-asp.net/pull/47) for more details.
+- Handle Null Reference Exception raised under load, [see for more details](https://github.com/Learnosity/learnosity-sdk-asp.net/pull/47)
 
 ### Security
 

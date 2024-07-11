@@ -1,0 +1,15 @@
+﻿@page
+@model LearnosityDemo.Pages.AuthorAideAPIDemoModel
+@{
+        ViewData["Title"] = "Learnosity Example: Authoraide API";
+        ViewData["TopJS"] = "<script src=\"https://authoraide.learnosity.com\"></script>";
+
+ }
+<!-- Authoraide API will render the authoraide app into this div. -->
+<div id="aiApp"></div>
+ <!-- Initiate Authoraide API rendering, using the JSON blob of signed params. -->  
+<script>
+    var authorApp = LearnosityAuthorAide.init(
+                @Html.Raw(ViewData["InitJSON"]), "#aiApp"
+);
+</script>

@@ -5,14 +5,13 @@
     <AssemblyName>LearnositySDK</AssemblyName>
     <RootNamespace>LearnositySDK</RootNamespace>
     <PackageId>LearnositySDK</PackageId>
-    <PackageVersion>0.9.3</PackageVersion>
+    <PackageVersion>0.10.0</PackageVersion>
     <Authors>Learnosity</Authors>
     <Description>Learnosity SDK for ASP.NET / C#</Description>
-    <PackageReleaseNotes>Handle Null Reference Exception raised under load. See https://github.com/Learnosity/learnosity-sdk-asp.net/issues/46. Security bump Newtonsoft.JSON from 10.0.3 to 13.0.2. 
-</PackageReleaseNotes>
+    <PackageReleaseNotes>Add support for Authoraide API</PackageReleaseNotes>
     <Copyright>Copyright Learnosity 2024 (c)</Copyright>
     <PackageTags>learnosity sdk asp .net</PackageTags>
-    <Version>0.9.3</Version>
+    <Version>0.10.0</Version>
     <PackageLicenseUrl>https://github.com/Learnosity/learnosity-sdk-asp.net/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Learnosity/learnosity-sdk-asp.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Learnosity/learnosity-sdk-asp.net</RepositoryUrl>

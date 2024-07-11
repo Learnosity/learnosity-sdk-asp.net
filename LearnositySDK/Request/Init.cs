@@ -157,7 +157,7 @@ namespace LearnositySDK.Request
 
             this.signRequestData = true;
             this.validSecurityKeys = new string[5] { "consumer_key", "domain", "timestamp", "expires", "user_id" };
-            this.validServices = new string[7] { "assess", "author", "data", "events", "items", "questions", "reports" };
+            this.validServices = new string[8] { "assess", "author", "data", "events", "items", "questions", "reports", "authoraide" };
             this.algorithm = "hmac-sha256";
 
             if (this.requestPacket == null)
@@ -248,7 +248,8 @@ namespace LearnositySDK.Request
                 case "items":
                     // fall through
                 case "reports":
-
+                    // fall through
+                case "authoraide":
                     output.set("security", this.securityPacket);
 
                     if (!Tools.empty(this.requestPacket))

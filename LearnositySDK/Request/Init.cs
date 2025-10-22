@@ -10,7 +10,7 @@ namespace LearnositySDK.Request
 {
     /// <summary>
     /// Learnosity SDK - Init
-    /// 
+    ///
     /// Used to generate the necessary security and request data (in the correct format) to integrate with any of the Learnosity API services.
     /// </summary>
     public class Init
@@ -38,7 +38,7 @@ namespace LearnositySDK.Request
         /// - domain (optional depending on which service is being intialised)
         /// - timestamp (optional)
         /// - user_id (optional depending on which service is being intialised)
-        /// 
+        ///
         /// It's important that the consumer secret is NOT a part of this array.
         /// </summary>
         private JsonObject securityPacket;
@@ -225,7 +225,7 @@ namespace LearnositySDK.Request
             }
 
             this.prehashString  = Tools.implode("_", signatureList.ToArray());
-  
+
             return this.hashValue(this.prehashString, this.secret);
         }
 
@@ -627,6 +627,28 @@ namespace LearnositySDK.Request
         public static void enableTelemetry()
         {
             telemetryEnabled = true;
+        }
+
+        /// <summary>
+        /// Gets the consumer key from the security packet
+        /// </summary>
+        /// <returns>The consumer key</returns>
+        public string getConsumerKey()
+        {
+            if (this.securityPacket != null)
+            {
+                return this.securityPacket.getString("consumer_key");
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the action for this request
+        /// </summary>
+        /// <returns>The action (e.g., "get", "set")</returns>
+        public string getAction()
+        {
+            return this.action;
         }
     }
 }

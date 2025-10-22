@@ -198,6 +198,67 @@ namespace LearnositySDKIntegrationTests
             Init.enableTelemetry();
         }
 
+        [Fact]
+        public void DataAPIIncludesMetadataHeaders()
+        {
+            // Arrange
+            string endpoint = this.baseDataAPIUrl + "/itembank/items";
+            string action = "get";
+
+            JsonObject security = new JsonObject();
+            security.set("consumer_key", this.consumerKey);
+            security.set("domain", this.domain);
+
+            JsonObject request = new JsonObject();
+            request.set("limit", 3);
+
+            // Act
+            DataApi da = new DataApi();
+            Remote r = da.request(endpoint, security, this.consumerSecret, request, action);
+
+            // Assert - Check that metadata headers are present
+            var headers = r.getRequestHeaders();
+            Assert.NotNull(headers);
+
+            // Verify consumer metadata header
+            string consumerHeader = headers.Get("X-Learnosity-Consumer");
+            Assert.NotNull(consumerHeader);
+            Assert.Equal(this.consumerKey, consumerHeader);
+
+            // Verify action metadata header
+            string actionHeader = headers.Get("X-Learnosity-Action");
+            Assert.NotNull(actionHeader);
+            Assert.Equal("get_/itembank/items", actionHeader);
+        }
+
+        [Fact]
+        public void DataAPIMetadataHeadersWithDifferentEndpoint()
+        {
+            // Arrange
+            string endpoint = this.baseDataAPIUrl + "/sessions/responses";
+            string action = "get";
+
+            JsonObject security = new JsonObject();
+            security.set("consumer_key", this.consumerKey);
+            security.set("domain", this.domain);
+
+            JsonObject request = new JsonObject();
+            request.set("limit", 1);
+
+            // Act
+            DataApi da = new DataApi();
+            Remote r = da.request(endpoint, security, this.consumerSecret, request, action);
+
+            // Assert - Check that metadata headers are present
+            var headers = r.getRequestHeaders();
+            Assert.NotNull(headers);
+
+            // Verify action metadata header has correct endpoint
+            string actionHeader = headers.Get("X-Learnosity-Action");
+            Assert.NotNull(actionHeader);
+            Assert.Equal("get_/sessions/responses", actionHeader);
+        }
+
         private JsonObject generateSecurityObject()
         {
             string timestamp = "20140626-0528";

@@ -181,7 +181,7 @@ namespace LearnositySDK.Request
 
             Stopwatch timer = new Stopwatch();
             timer.Start();
-            
+
             try
             {
                 using (this.result = this.hr.GetResponse())
@@ -319,15 +319,38 @@ namespace LearnositySDK.Request
         /// <returns></returns>
         private WebHeaderCollection headersFromJsonObject(JsonObject obj)
         {
-            List<string> values = obj.getValuesList();
             WebHeaderCollection headers = new WebHeaderCollection();
 
-            foreach (string header in values)
+            if (obj == null)
             {
-                headers.Add(header);
+                return headers;
+            }
+
+            string[] keys = obj.getKeys();
+
+            foreach (string key in keys)
+            {
+                string value = obj.getString(key);
+                if (value != null)
+                {
+                    headers.Add(key, value);
+                }
             }
 
             return headers;
+        }
+
+        /// <summary>
+        /// Returns the request headers that were sent
+        /// </summary>
+        /// <returns>WebHeaderCollection of request headers</returns>
+        public WebHeaderCollection getRequestHeaders()
+        {
+            if (this.hr != null)
+            {
+                return this.hr.Headers;
+            }
+            return null;
         }
     }
 }

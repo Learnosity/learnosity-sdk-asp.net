@@ -1,0 +1,86 @@
+@page
+@model LearnosityDemo.Pages.DataAPIDemoModel
+@{
+    ViewData["Title"] = "Data API Demo";
+}
+
+<div class="container">
+    <h1>Data API Demo - Metadata Headers</h1>
+    <p>This page demonstrates the metadata headers that are automatically included in every Data API request.</p>
+
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            <h3>Request Information</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th style="width: 30%;">Endpoint</th>
+                        <td><code>@Model.Endpoint</code></td>
+                    </tr>
+                    <tr>
+                        <th>Action</th>
+                        <td><code>@Model.Action</code></td>
+                    </tr>
+                    <tr>
+                        <th>Status Code</th>
+                        <td><span class="badge @(Model.HttpStatusCode == "200" ? "bg-success" : "bg-danger")">@Model.HttpStatusCode</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header bg-success text-white">
+            <h3>Metadata Headers (Sent Automatically)</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">These headers are added automatically by the SDK and are invisible to customers:</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Header Name</th>
+                        <th>Header Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>X-Learnosity-Consumer</code></td>
+                        <td><strong>@Model.ConsumerHeader</strong></td>
+                    </tr>
+                    <tr>
+                        <td><code>X-Learnosity-Action</code></td>
+                        <td><strong>@Model.ActionHeader</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="alert alert-info mt-3">
+                <strong>Note:</strong> The action metadata format is <code>{method}_{endpoint}</code>.
+                For this request, it's <code>@Model.ActionHeader</code>.
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header bg-info text-white">
+            <h3>Response Body</h3>
+        </div>
+        <div class="card-body">
+            <pre style="max-height: 400px; overflow-y: auto;"><code>@Model.ResponseBody</code></pre>
+        </div>
+    </div>
+
+    <div class="alert alert-warning mt-4">
+        <h4>How It Works</h4>
+        <ul>
+            <li>The SDK automatically extracts the consumer key from the security packet</li>
+            <li>The SDK builds the action metadata by combining the HTTP method with the endpoint path</li>
+            <li>These values are added as HTTP headers (<code>X-Learnosity-Consumer</code> and <code>X-Learnosity-Action</code>)</li>
+            <li>The headers are available at the ALB layer for routing decisions</li>
+            <li>No changes are required to customer code - it's completely transparent!</li>
+        </ul>
+    </div>
+</div>
+

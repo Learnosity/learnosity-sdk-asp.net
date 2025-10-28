@@ -104,5 +104,29 @@ namespace LearnositySDKUnitTests
             Assert.IsTrue(generatedString.Contains("meta"));
             Assert.IsTrue(generatedString.Contains("sdk"));
         }
+
+        [TestMethod]
+        public void testGetConsumerKey()
+        {
+            Init init = TestRequest.getTestRequestFor("data", "get").getJsonInit();
+
+            Assert.AreEqual("yis0TYCu7U9V4o7M", init.getConsumerKey());
+        }
+
+        [TestMethod]
+        public void testGetAction()
+        {
+            Init init = TestRequest.getTestRequestFor("data", "get").getJsonInit();
+
+            Assert.AreEqual("get", init.getAction());
+        }
+
+        [TestMethod]
+        public void testGetActionWithPostAction()
+        {
+            Init init = TestRequest.getTestRequestFor("data", "post").getJsonInit();
+
+            Assert.AreEqual("post", init.getAction());
+        }
     }
 }

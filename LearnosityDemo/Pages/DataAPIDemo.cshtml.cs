@@ -14,6 +14,7 @@ namespace LearnosityDemo.Pages
         public string ResponseBody { get; set; }
         public string ConsumerHeader { get; set; }
         public string ActionHeader { get; set; }
+        public string SdkHeader { get; set; }
         public string Endpoint { get; set; }
         public string Action { get; set; }
         public string HttpStatusCode { get; set; }
@@ -52,6 +53,7 @@ namespace LearnosityDemo.Pages
             {
                 ConsumerHeader = headers.Get("X-Learnosity-Consumer");
                 ActionHeader = headers.Get("X-Learnosity-Action");
+                SdkHeader = headers.Get("X-Learnosity-SDK");
 
                 // Log the metadata headers
                 _logger.LogInformation("=== Data API Request Metadata ===");
@@ -59,6 +61,7 @@ namespace LearnosityDemo.Pages
                 _logger.LogInformation($"Action: {action}");
                 _logger.LogInformation($"X-Learnosity-Consumer: {ConsumerHeader}");
                 _logger.LogInformation($"X-Learnosity-Action: {ActionHeader}");
+                _logger.LogInformation($"X-Learnosity-SDK: {SdkHeader}");
                 _logger.LogInformation($"Status Code: {HttpStatusCode}");
                 _logger.LogInformation("=================================");
             }

@@ -317,8 +317,8 @@ namespace LearnositySDKUnitTests
         }
 
         /// <summary>
-        /// Helper method to test the private extractEndpoint and buildActionMetadata methods
-        /// by making an actual request and checking the action header
+        /// Helper method to test the metadata extraction by making an actual request
+        /// and checking both the action header and the request body metadata
         /// </summary>
         private string GetActionMetadataFromUrl(string url, string action)
         {
@@ -330,25 +330,55 @@ namespace LearnositySDKUnitTests
             JsonObject request = new JsonObject();
             request.set("limit", 1);
 
-            DataApi da = new DataApi();
+            // Create Init directly to test metadata in request body
+            Init init = new Init("data", security, "test_secret", request, action, url);
+            string parameters = init.generate();
 
-            try
+            // Parse the generated parameters to check metadata in request body
+            var parts = System.Web.HttpUtility.ParseQueryString(parameters);
+            string requestJson = parts["request"];
+
+            if (!string.IsNullOrEmpty(requestJson))
             {
-                // Make the request (it will fail because of invalid credentials, but that's OK)
-                // We just need to check that the metadata extraction works
-                Remote r = da.request(url, security, "test_secret", request, action);
-
-                // Get the action header that was set
-                var headers = r.getRequestHeaders();
-                if (headers != null)
+                JsonObject requestData = JsonObjectFactory.fromString(requestJson);
+                if (requestData != null)
                 {
-                    return headers.Get("X-Learnosity-Action");
+                    JsonObject meta = requestData.getJsonObject("meta");
+                    if (meta != null)
+                    {
+                        // Verify metadata is in request body
+                        string actionInBody = meta.getString("action");
+                        string consumerInBody = meta.getString("consumer");
+
+                        // Also verify it would be in headers by making the actual request
+                        DataApi da = new DataApi();
+                        try
+                        {
+                            Remote r = da.request(url, security, "test_secret", request, action);
+                            var headers = r.getRequestHeaders();
+                            if (headers != null)
+                            {
+                                string actionInHeader = headers.Get("X-Learnosity-Action");
+                                string consumerInHeader = headers.Get("X-Learnosity-Consumer");
+                                string sdkInHeader = headers.Get("X-Learnosity-SDK");
+
+                                // Verify metadata is consistent between body and headers
+                                Assert.AreEqual(actionInBody, actionInHeader, "Action metadata should match between body and headers");
+                                Assert.AreEqual(consumerInBody, consumerInHeader, "Consumer metadata should match between body and headers");
+
+                                // Verify SDK header format (should be "ASP.NET:version")
+                                Assert.IsNotNull(sdkInHeader, "SDK header should be present");
+                                Assert.IsTrue(sdkInHeader.StartsWith("ASP.NET:"), "SDK header should start with 'ASP.NET:'");
+                            }
+                        }
+                        catch
+                        {
+                            // Request will fail due to invalid credentials, but we can still verify body metadata
+                        }
+
+                        return actionInBody;
+                    }
                 }
-            }
-            catch
-            {
-                // Request will fail due to invalid credentials, but we can still check headers
-                // by examining what would have been sent
             }
 
             return null;

@@ -64,6 +64,11 @@ namespace LearnositySDK.Request
         private string action;
 
         /// <summary>
+        /// The endpoint URL for Data API requests, used to derive action metadata
+        /// </summary>
+        private string endpoint;
+
+        /// <summary>
         /// Most services add the request packet (if passed) to the signature for security reasons. This flag can override that behaviour for services that don't require this.
         /// </summary>
         private bool signRequestData;
@@ -94,11 +99,71 @@ namespace LearnositySDK.Request
         /// <param name="service"></param>
         /// <param name="securityPacketJson"></param>
         /// <param name="secret"></param>
+        public Init(string service, string securityPacketJson, string secret)
+        {
+            this.Initialize(service, securityPacketJson, secret, null, null, null);
+        }
+
+        /// <summary>
+        /// Instantiate this class with all security and request data. It will be used to create a signature.
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="securityPacketJson"></param>
+        /// <param name="secret"></param>
+        /// <param name="requestPacketJson"></param>
+        public Init(string service, string securityPacketJson, string secret, string requestPacketJson)
+        {
+            this.Initialize(service, securityPacketJson, secret, requestPacketJson, null, null);
+        }
+
+        /// <summary>
+        /// Instantiate this class with all security and request data. It will be used to create a signature.
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="securityPacketJson"></param>
+        /// <param name="secret"></param>
         /// <param name="requestPacketJson"></param>
         /// <param name="action"></param>
-        public Init(string service, string securityPacketJson, string secret, string requestPacketJson = null, string action = null)
+        public Init(string service, string securityPacketJson, string secret, string requestPacketJson, string action)
         {
-            this.Initialize(service, securityPacketJson, secret, requestPacketJson, action);
+            this.Initialize(service, securityPacketJson, secret, requestPacketJson, action, null);
+        }
+
+        /// <summary>
+        /// Instantiate this class with all security and request data. It will be used to create a signature.
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="securityPacketJson"></param>
+        /// <param name="secret"></param>
+        /// <param name="requestPacketJson"></param>
+        /// <param name="action"></param>
+        /// <param name="endpoint"></param>
+        public Init(string service, string securityPacketJson, string secret, string requestPacketJson, string action, string endpoint)
+        {
+            this.Initialize(service, securityPacketJson, secret, requestPacketJson, action, endpoint);
+        }
+
+        /// <summary>
+        /// Instantiate this class with all security and request data. It will be used to create a signature.
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="securityPacket"></param>
+        /// <param name="secret"></param>
+        public Init(string service, JsonObject securityPacket, string secret)
+        {
+            this.Initialize(service, securityPacket, secret, null, null, null);
+        }
+
+        /// <summary>
+        /// Instantiate this class with all security and request data. It will be used to create a signature.
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="securityPacket"></param>
+        /// <param name="secret"></param>
+        /// <param name="requestPacket"></param>
+        public Init(string service, JsonObject securityPacket, string secret, JsonObject requestPacket)
+        {
+            this.Initialize(service, securityPacket, secret, requestPacket, null, null);
         }
 
         /// <summary>
@@ -109,9 +174,23 @@ namespace LearnositySDK.Request
         /// <param name="secret"></param>
         /// <param name="requestPacket"></param>
         /// <param name="action"></param>
-        public Init(string service, JsonObject securityPacket, string secret, JsonObject requestPacket = null, string action = null)
+        public Init(string service, JsonObject securityPacket, string secret, JsonObject requestPacket, string action)
         {
-            this.Initialize(service, securityPacket, secret, requestPacket, action);
+            this.Initialize(service, securityPacket, secret, requestPacket, action, null);
+        }
+
+        /// <summary>
+        /// Instantiate this class with all security and request data. It will be used to create a signature.
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="securityPacket"></param>
+        /// <param name="secret"></param>
+        /// <param name="requestPacket"></param>
+        /// <param name="action"></param>
+        /// <param name="endpoint"></param>
+        public Init(string service, JsonObject securityPacket, string secret, JsonObject requestPacket, string action, string endpoint)
+        {
+            this.Initialize(service, securityPacket, secret, requestPacket, action, endpoint);
         }
 
         /// <summary>
@@ -122,7 +201,8 @@ namespace LearnositySDK.Request
         /// <param name="secret"></param>
         /// <param name="requestPacketJson"></param>
         /// <param name="action"></param>
-        private void Initialize(string service, string securityPacketJson, string secret, string requestPacketJson = null, string action = null)
+        /// <param name="endpoint"></param>
+        private void Initialize(string service, string securityPacketJson, string secret, string requestPacketJson, string action, string endpoint)
         {
             JsonObject securityPacket = JsonObjectFactory.fromString(securityPacketJson);
             JsonObject requestPacket;
@@ -136,7 +216,7 @@ namespace LearnositySDK.Request
                 requestPacket = JsonObjectFactory.fromString(requestPacketJson);
             }
 
-            this.Initialize(service, securityPacket, secret, requestPacket, action);
+            this.Initialize(service, securityPacket, secret, requestPacket, action, endpoint);
         }
 
         /// <summary>
@@ -147,13 +227,15 @@ namespace LearnositySDK.Request
         /// <param name="secret"></param>
         /// <param name="requestPacket"></param>
         /// <param name="action"></param>
-        private void Initialize(string service, JsonObject securityPacket, string secret, JsonObject requestPacket = null, string action = null)
+        /// <param name="endpoint"></param>
+        private void Initialize(string service, JsonObject securityPacket, string secret, JsonObject requestPacket, string action, string endpoint)
         {
             this.service = service;
             this.securityPacket = (JsonObject)securityPacket.Clone();
             this.secret = secret;
             this.requestPacket = requestPacket;
             this.action = action;
+            this.endpoint = endpoint;
 
             this.signRequestData = true;
             this.validSecurityKeys = new string[5] { "consumer_key", "domain", "timestamp", "expires", "user_id" };
@@ -540,7 +622,27 @@ namespace LearnositySDK.Request
                     meta = new JsonObject();
                 }
 
+                // Add SDK telemetry
                 meta.set("sdk", this.getSdkMeta());
+
+                // Add consumer and action metadata for Data API requests
+                if (this.service == "data")
+                {
+                    // Add consumer metadata
+                    string consumerKey = this.securityPacket.getString("consumer_key");
+                    if (!Tools.empty(consumerKey))
+                    {
+                        meta.set("consumer", consumerKey);
+                    }
+
+                    // Add action metadata
+                    string actionMetadata = this.deriveAction();
+                    if (!Tools.empty(actionMetadata))
+                    {
+                        meta.set("action", actionMetadata);
+                    }
+                }
+
                 this.requestPacket.set("meta", meta);
             }
         }
@@ -548,6 +650,143 @@ namespace LearnositySDK.Request
         public bool isTelemetryEnabled()
         {
             return telemetryEnabled;
+        }
+
+        /// <summary>
+        /// Derives the action metadata from the endpoint URL and HTTP method.
+        /// Format: {method}_{path} (e.g., "get_/itembank/items", "set_/session_scores")
+        /// </summary>
+        /// <returns>The derived action string</returns>
+        private string deriveAction()
+        {
+            if (Tools.empty(this.endpoint))
+            {
+                return this.action ?? "unknown";
+            }
+
+            // Extract the endpoint path from the URL
+            string path = this.extractEndpoint(this.endpoint);
+
+            if (Tools.empty(path))
+            {
+                return this.action ?? "unknown";
+            }
+
+            // Use the action parameter if provided, otherwise default to 'get'
+            string method = this.action ?? "get";
+
+            return method + "_" + path;
+        }
+
+        /// <summary>
+        /// Extracts the endpoint path from a Data API URL
+        /// </summary>
+        /// <param name="url">The full URL</param>
+        /// <returns>The endpoint path (e.g., "/itembank/items")</returns>
+        /// <remarks>
+        /// Handles URLs with or without version:
+        /// - https://data.learnosity.com/v1/itembank/items -> /itembank/items
+        /// - https://data.learnosity.com/latest-lts/itembank/items -> /itembank/items
+        /// - https://data.learnosity.com/v2025.1.LTS/itembank/items -> /itembank/items
+        /// - https://data.learnosity.com/itembank/items -> /itembank/items
+        /// </remarks>
+        private string extractEndpoint(string url)
+        {
+            try
+            {
+                Uri uri = new Uri(url);
+                string path = uri.AbsolutePath;
+
+                // Remove leading slash if present
+                if (path.StartsWith("/"))
+                {
+                    path = path.Substring(1);
+                }
+
+                // Split the path into segments
+                string[] segments = path.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (segments.Length == 0)
+                {
+                    return null;
+                }
+
+                // Check if the first segment is a version identifier
+                string firstSegment = segments[0];
+                bool isVersion = this.isVersionSegment(firstSegment);
+
+                // If first segment is a version, skip it and return the rest
+                // Otherwise, return the entire path
+                int startIndex = isVersion ? 1 : 0;
+
+                if (startIndex >= segments.Length)
+                {
+                    return null;
+                }
+
+                // Reconstruct the endpoint path
+                string endpointPath = "/" + string.Join("/", segments, startIndex, segments.Length - startIndex);
+                return endpointPath;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Checks if a path segment is a version identifier
+        /// </summary>
+        /// <param name="segment">The path segment to check</param>
+        /// <returns>True if the segment is a version identifier, false otherwise</returns>
+        /// <remarks>
+        /// Valid version patterns (based on Learnosity API version list):
+        /// - latest: latest
+        /// - developer: developer
+        /// - latest-lts: latest-lts
+        /// - v{number}: v0, v1, v2, etc.
+        /// - v{number}.{number}: v1.22, v1.84, etc.
+        /// - v{year}.{minor}.LTS: v2024.3.LTS, v2025.1.LTS, etc.
+        /// - v{year}.{minor}.preview{number}: v2022.3.preview1, etc.
+        /// Invalid (should return false):
+        /// - validateItembanks (starts with 'v' but not a version)
+        /// - verify (starts with 'v' but not a version)
+        /// </remarks>
+        private bool isVersionSegment(string segment)
+        {
+            if (string.IsNullOrEmpty(segment))
+            {
+                return false;
+            }
+
+            // Check for known version keywords
+            if (segment.Equals("latest", StringComparison.OrdinalIgnoreCase) ||
+                segment.Equals("latest-lts", StringComparison.OrdinalIgnoreCase) ||
+                segment.Equals("developer", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            // Check for version patterns starting with 'v'
+            // Valid: v0, v1, v2, v1.22, v1.84, v2024.3.LTS, v2025.1.LTS, v2022.3.preview1
+            // Invalid: validateItembanks, verify
+            if (segment.StartsWith("v", StringComparison.OrdinalIgnoreCase))
+            {
+                // Must be at least 2 characters (v + digit)
+                if (segment.Length < 2)
+                {
+                    return false;
+                }
+
+                // The character after 'v' must be a digit
+                char secondChar = segment[1];
+                if (char.IsDigit(secondChar))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public JsonObject getSdkMeta()

@@ -8,6 +8,7 @@ using System.IO;
 using LearnositySDK.Utils;
 using System.Diagnostics;
 using System.Threading;
+using System.Globalization;
 
 namespace LearnositySDK.Request
 {
@@ -156,6 +157,9 @@ namespace LearnositySDK.Request
             options = Tools.array_merge(defaults, options, true);
 
             WebHeaderCollection headers = this.headersFromJsonObject(options.getJsonObject("headers"));
+
+            // Add metadata headers for ALB layer access
+            headers = this.addMetadataHeaders(headers, post);
 
             this.hr = (HttpWebRequest)HttpWebRequest.Create(url);
             this.hr.Timeout = options.getInt("timeout") * 1000;
@@ -310,6 +314,81 @@ namespace LearnositySDK.Request
         public JsonObject json()
         {
             return this.responseBodyJsonObject;
+        }
+
+        /// <summary>
+        /// Add metadata headers for ALB layer access from Data API request data.
+        /// Extracts metadata from the request body and adds as HTTP headers.
+        /// </summary>
+        /// <param name="headers">The existing headers collection</param>
+        /// <param name="post">The POST data payload (URL-encoded string)</param>
+        /// <returns>Headers with metadata added</returns>
+        private WebHeaderCollection addMetadataHeaders(WebHeaderCollection headers, string post)
+        {
+            if (Tools.empty(post))
+            {
+                return headers;
+            }
+
+            try
+            {
+                // Parse the POST data (format: "security=...&request=...&action=...")
+                var parts = HttpUtility.ParseQueryString(post);
+                string requestJson = parts["request"];
+
+                if (Tools.empty(requestJson))
+                {
+                    return headers;
+                }
+
+                // Decode the request packet to extract metadata
+                JsonObject requestData = JsonObjectFactory.fromString(requestJson);
+                if (requestData == null)
+                {
+                    return headers;
+                }
+
+                JsonObject meta = requestData.getJsonObject("meta");
+                if (meta == null)
+                {
+                    return headers;
+                }
+
+                // Add consumer header if available
+                string consumer = meta.getString("consumer");
+                if (!Tools.empty(consumer))
+                {
+                    headers.Add("X-Learnosity-Consumer", consumer);
+                }
+
+                // Add action header if available
+                string action = meta.getString("action");
+                if (!Tools.empty(action))
+                {
+                    headers.Add("X-Learnosity-Action", action);
+                }
+
+                // Add SDK header if available (format: language:version, e.g., "ASP.NET:0.10.0")
+                JsonObject sdk = meta.getJsonObject("sdk");
+                if (sdk != null)
+                {
+                    string lang = sdk.getString("lang");
+                    string version = sdk.getString("version");
+
+                    if (!Tools.empty(lang) && !Tools.empty(version))
+                    {
+                        // Format: language:version (e.g., "ASP.NET:0.10.0")
+                        string sdkHeader = lang.ToUpper(CultureInfo.InvariantCulture) + ":" + version;
+                        headers.Add("X-Learnosity-SDK", sdkHeader);
+                    }
+                }
+            }
+            catch
+            {
+                // Silently ignore errors to avoid breaking requests
+            }
+
+            return headers;
         }
 
         /// <summary>

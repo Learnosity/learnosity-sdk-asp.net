@@ -46,17 +46,28 @@ There's more features, besides. See the detailed list of SDK features on the [re
 [(Back to top)](#table-of-contents)
 
 ## Requirements
-1. Microsoft Visual Studio IDE installed. ([instructions](https://visualstudio.microsoft.com/))
 
-2. When installing Visual Studio, you'll want to add in the tools for web applications, using ASP .NET Core, C#, and Razor pages.
+### For Using the SDK
+The Learnosity SDK targets **.NET Standard 2.0**, which is compatible with:
+* .NET Framework 4.6.1 or later (Windows)
+* .NET Core 2.0 or later
+* .NET 5, 6, 7, 8 or later
 
-Not using .NET or C# ? See the [SDKs for other languages](https://help.learnosity.com/hc/en-us/sections/360000194318-Server-side-development-SDKs).
+### For Developing the SDK
+To build and run the SDK project, tests, and demo application, you need:
+
+1. **.NET 7 SDK or later** ([download here](https://dotnet.microsoft.com/download/dotnet/7.0))
+
+2. **Microsoft Visual Studio IDE** (optional, but recommended) ([instructions](https://visualstudio.microsoft.com/))
+   - When installing Visual Studio, add the tools for web applications using ASP.NET, C#, and Razor pages
+
+Not using .NET or C#? See the [SDKs for other languages](https://help.learnosity.com/hc/en-us/sections/360000194318-Server-side-development-SDKs).
 
 ### Supported Visual Studio Versions
 The following Visual Studio versions are supported and tested:
 
-* Visual Studio for Windows 2019
-* Visual Studio for Mac 8.10
+* Visual Studio for Windows 2019 or later
+* Visual Studio for Mac 8.10 or later
 
 [(Back to top)](#table-of-contents)
 

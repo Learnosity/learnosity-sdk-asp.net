@@ -1,13 +1,19 @@
 language: csharp
 mono: none
-dotnet: 3.1
 
 env:
   matrix:
     - REGION=va
     - REGION=ca
-    
+
 before_install:
+  # Install .NET 7.0 SDK using Microsoft's official script
+  - wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+  - chmod +x dotnet-install.sh
+  - ./dotnet-install.sh --channel 7.0 --install-dir $HOME/.dotnet
+  - export PATH="$HOME/.dotnet:$PATH"
+  - export DOTNET_ROOT="$HOME/.dotnet"
+  - dotnet --version
   # Login to docker hub
   - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 

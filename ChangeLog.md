@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.11.0] - 2026-01-19
+
+### Added
+
+- Add SDK metadata headers (`X-Learnosity-SDK`,
+  `X-Learnosity-Consumer`, `X-Learnosity-Action`) to Data API requests
+  for improved routing and telemetry (LRN-48805)
+- Add Data API demo page to showcase metadata headers
+
+### Changed
+
+- Refactor `DataApi` and `Remote` classes to support metadata
+  extraction and header injection
+
 ## [v0.10.0] - 2024-07-11
 ### Added
 

@@ -532,6 +532,9 @@ namespace LearnositySDK.Request
                     break;
                 case "events":
 
+                    // Generate signature first to populate prehashString, which is needed for hashing user_ids
+                    generateSignature();
+
                     string consumer_key = this.securityPacket.getString("consumer_key");
                     JsonObject hashedUsers;
 

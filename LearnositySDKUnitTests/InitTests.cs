@@ -50,6 +50,7 @@ namespace LearnositySDKUnitTests
             {
                 { "assess", "$02$8de51b7601f606a7f32665541026580d09616028dde9a929ce81cf2e88f56eb8" },
                 { "author", "$02$ca2769c4be77037cf22e0f7a2291fe48c470ac6db2f45520a259907370eff861" },
+                { "events", "$02$5f379dfad7957b2c221d94f2e4f0f93bb548ac3e60af3c36c9f963f4d9b1c4f0" },
                 { "items", "$02$78ef0334e708829bd3c92decc040f91c8433b07ba32cc9198705a18c36c2ea54" },
                 { "questions", "$02$8de51b7601f606a7f32665541026580d09616028dde9a929ce81cf2e88f56eb8" },
                 { "reports", "$02$8e0069e7aa8058b47509f35be236c53fa1a878c64b12589fd42f48b568f6ac84" },
@@ -127,6 +128,41 @@ namespace LearnositySDKUnitTests
             Init init = TestRequest.getTestRequestFor("data", "post").getJsonInit();
 
             Assert.AreEqual("post", init.getAction());
+        }
+
+        [TestMethod]
+        public void testEventsApiDoesNotCrash()
+        {
+            // This test verifies the fix for the Events API crash
+            // Previously, Events API would throw ArgumentNullException when trying to hash user_ids
+            // because prehashString was null when setServiceOptions() was called
+            Init init = TestRequest.getTestRequestFor("events").getJsonInit();
+
+            // If we get here without an exception, the fix is working
+            Assert.IsNotNull(init);
+
+            // Verify signature was generated successfully
+            string signature = init.generateSignature();
+            Assert.IsNotNull(signature);
+            Assert.IsTrue(signature.StartsWith("$02$"));
+        }
+
+        [TestMethod]
+        public void testEventsApiGeneratesValidOutput()
+        {
+            // This test verifies that Events API generates valid output with hashed users
+            Init init = TestRequest.getTestRequestFor("events").getJsonInit();
+
+            string output = init.generate();
+
+            // Verify output is not empty
+            Assert.IsNotNull(output);
+            Assert.IsTrue(output.Length > 0);
+
+            // Verify output contains security and config sections
+            Assert.IsTrue(output.Contains("security"));
+            Assert.IsTrue(output.Contains("config"));
+            Assert.IsTrue(output.Contains("signature"));
         }
     }
 }

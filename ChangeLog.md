@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed Events API crash when signing requests with user IDs. The API would throw `ArgumentNullException` because `prehashString` was null when attempting to hash user IDs in the request packet.
+
 ## [v0.11.0] - 2026-01-19
 
 ### Added

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Removed
+
+- Remove Travis CI configuration (LRN-51191)
+
 ### Fixed
 
 - Fixed Events API crash when signing requests with user IDs. The API

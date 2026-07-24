@@ -5,6 +5,8 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Numerics;
+using System.Xml.Linq;
 
 namespace LearnositySDK.Utils
 {
@@ -98,7 +100,14 @@ namespace LearnositySDK.Utils
                     jsonObject.set(key, (int)item);
                     break;
                 case JTokenType.Float:
-                    jsonObject.set(key, (decimal)item);
+                    try
+                    {
+                        jsonObject.set(key, (float) item);
+                    }
+                    catch (OverflowException)
+                    {
+                        jsonObject.set(key, float.MaxValue);
+                    }
                     break;
                 case JTokenType.String:
                     jsonObject.set(key, (string)item);
